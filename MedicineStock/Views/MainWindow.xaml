@@ -6,6 +6,7 @@
         xmlns:cmd="clr-namespace:MedicationSupply.Commands"
         xmlns:local="clr-namespace:MedicationSupply"
         mc:Ignorable="d"
+        Closing="Window_Closing"
         Title="Medicine stock"
         Height="450"
         Width="600">

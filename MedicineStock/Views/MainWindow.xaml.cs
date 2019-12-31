@@ -80,7 +80,7 @@ namespace MedicationSupply
 
     private void SaveCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
     {
-      e.CanExecute = MainVM.Medicines.Count > 0;
+      e.CanExecute = (MainVM.Medicines.Count > 0) && MainVM.IsJsonChanged();
     }
 
     private void SaveCommand_Execute(object sender, ExecutedRoutedEventArgs e)
@@ -165,5 +165,9 @@ namespace MedicationSupply
 
     #endregion
 
+    private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+    {
+      MainVM.Closing();
+    }
   }
 }

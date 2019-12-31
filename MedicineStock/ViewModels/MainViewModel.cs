@@ -3,6 +3,7 @@ using MedicationSupply.Models;
 using Newtonsoft.Json;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Windows;
 
 namespace MedicationSupply.ViewModels
 {
@@ -29,13 +30,50 @@ namespace MedicationSupply.ViewModels
 
       MainView = mainWindow;
 
+      MainView.Title = 
+        $"Medicine stock ({System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()})";
+
       LoadMedicineStock();
 
     }
 
     #endregion
 
+    public void Closing()
+    {
+      if (IsJsonChanged())
+      {
+        if (!File.Exists("NoAutoSave.trg"))
+        {
+          SaveMedicineStock();
+        }
+        else
+        {
+          MessageBox.Show("Not saved...");
+        }
+      }
+    }
+
     #region Load & save
+
+    public bool IsJsonChanged()
+    {
+      bool result = false;
+      foreach (var item in Medicines)
+      {
+        result = result || item.IsChanged;
+      }
+
+      return result;
+    }
+
+    private void JsonIsSaved()
+    {
+      foreach (var item in Medicines)
+      {
+        item.Saved();
+      }
+    }
 
     private void LoadMedicineStock()
     {
@@ -69,6 +107,8 @@ namespace MedicationSupply.ViewModels
       {
         stream.Write(json);
       }
+
+      JsonIsSaved();
     }
     
     #endregion

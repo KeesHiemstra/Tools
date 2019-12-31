@@ -104,7 +104,7 @@ namespace MedicationSupply.Models
         }
       }
     }
-
+    public bool IsChanged { get; private set; }
 
     public ObservableCollection<Prescription> Prescriptions { get; set; } = new ObservableCollection<Prescription>();
     public ObservableCollection<Stock> Stocks { get; set; } = new ObservableCollection<Stock>();
@@ -120,10 +120,16 @@ namespace MedicationSupply.Models
       if (PropertyChanged != null)
       {
         PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        IsChanged = true;
       }
     }
     #endregion
 
+
+    public void Saved()
+    {
+      IsChanged = false;
+    }
 
     [JsonIgnore]
     public int LastPrescripeStrength
