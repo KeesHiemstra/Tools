@@ -1,0 +1,76 @@
+﻿<Window x:Class="MedicationSupply.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:cmd="clr-namespace:MedicationSupply.Commands"
+        xmlns:local="clr-namespace:MedicationSupply"
+        mc:Ignorable="d"
+        Title="Medicine stock"
+        Height="450"
+        Width="600">
+
+  <!--#region [ Commands ] -->
+  <Window.CommandBindings>
+    
+    <!--#region File -->
+    <CommandBinding
+			CanExecute="SaveCommand_CanExecute"
+			Command="cmd:MainCommands.Save"
+			Executed="SaveCommand_Execute" />
+    <CommandBinding
+			CanExecute="ExitCommand_CanExecute"
+			Command="cmd:MainCommands.Exit"
+			Executed="ExitCommand_Execute" />
+    <!--#endregion-->
+    
+    <!--#region Add -->
+    <CommandBinding
+      CanExecute="MedicineCommandMedicineAdd_CanExecute"
+      Command="cmd:MainCommands.AddMedicine"
+      Executed="MedicineCommandMedicineAdd_Execute"/>
+    <!--#endregion-->
+    
+  </Window.CommandBindings>
+  <!--#endregion-->
+
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+
+    <Menu Name="Main"
+          Grid.Row="0">
+      <MenuItem Header="_File">
+        <MenuItem Command="cmd:MainCommands.Save"/>
+        <Separator/>
+        <MenuItem Command="cmd:MainCommands.Exit"/>
+      </MenuItem>
+      <MenuItem Header="_Add">
+        <MenuItem Command="cmd:MainCommands.AddMedicine"/>
+      </MenuItem>
+    </Menu>
+
+    <DataGrid Name="MedicinesDataGrid"
+              ItemsSource="{Binding Medicines}"
+              AutoGenerateColumns="False"
+              IsReadOnly="True"
+              CanUserAddRows="False"
+              MouseDoubleClick="MedicinesDataGrid_MouseDoubleClick"
+              MouseLeftButtonUp="MedicinesDataGrid_MouseLeftButtonUp"
+              MouseRightButtonUp="MedicinesDataGrid_MouseRightButtonUp"
+              Grid.Row="1">
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+        <DataGridCheckBoxColumn Header="Recurring" Binding="{Binding Recurring}"/>
+        <DataGridTextColumn Header="Strength" Binding="{Binding LastPrescripeStrength}"/>
+        <DataGridTextColumn Header="Day" Binding="{Binding LastPrescripeDay}"/>
+        <DataGridTextColumn Header="Unit" Binding="{Binding LastPrescriptionUnit}"/>
+        <DataGridTextColumn Header="Stock" Binding="{Binding PredictedStock}"/>
+        <DataGridTextColumn Header="End stock" Binding="{Binding PredictedEndStock, StringFormat=yyyy-MM-dd}"/>
+      </DataGrid.Columns>
+    </DataGrid>
+
+  </Grid>
+</Window>
