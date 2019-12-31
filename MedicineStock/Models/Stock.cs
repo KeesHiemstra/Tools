@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.ComponentModel;
 
 namespace MedicationSupply.Models
@@ -64,6 +65,8 @@ namespace MedicationSupply.Models
         }
       }
     }
+    [JsonIgnore]
+    public bool IsChanged { get; private set; }
 
     #endregion 
 
@@ -75,6 +78,7 @@ namespace MedicationSupply.Models
       if (PropertyChanged != null)
       {
         PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        IsChanged = true;
       }
     }
 

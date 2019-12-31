@@ -62,6 +62,16 @@ namespace MedicationSupply.ViewModels
       foreach (var item in Medicines)
       {
         result = result || item.IsChanged;
+
+        foreach (var deep in item.Prescriptions)
+        {
+          result = result || deep.IsChanged;
+        }
+
+        foreach (var deep in item.Stocks)
+        {
+          result = result || deep.IsChanged;
+        }
       }
 
       return result;

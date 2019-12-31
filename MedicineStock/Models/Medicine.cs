@@ -12,7 +12,7 @@ namespace MedicationSupply.Models
 
     #region [ Fields ]
 
-    private readonly DateTime CalculateCountDate = DateTime.Now.Date.AddDays(-1);
+    private readonly DateTime CalculateCountDate = DateTime.Now.Date;
     private int id;
     private string name;
     private bool recurring;
@@ -104,6 +104,7 @@ namespace MedicationSupply.Models
         }
       }
     }
+    [JsonIgnore]
     public bool IsChanged { get; private set; }
 
     public ObservableCollection<Prescription> Prescriptions { get; set; } = new ObservableCollection<Prescription>();
