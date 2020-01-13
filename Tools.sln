@@ -9,6 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeographicLocation", "Geogr
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F5F128C8-FF0B-46ED-A7C7-721023C7F1D1}"
 	ProjectSection(SolutionItems) = preProject
+		CHi\Extensions\DbContextExtensions.cs = CHi\Extensions\DbContextExtensions.cs
 		CHi\Extensions\PathExtensions.cs = CHi\Extensions\PathExtensions.cs
 	EndProjectSection
 EndProject
