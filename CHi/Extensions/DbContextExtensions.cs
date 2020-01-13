@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WeatherMonitor.Extensions
+namespace CHi.Extensions
 {
   public static class DbContextExtensions
   {
