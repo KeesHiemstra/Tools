@@ -1,7 +1,9 @@
-﻿using GeographicLocation.ViewModels;
+﻿using GeographicLocation.Models;
+using GeographicLocation.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -34,5 +36,14 @@ namespace GeographicLocation
 
     }
 
+    private void LocationComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+      var s = (Location)((ComboBox)sender).SelectedItem;
+      if (MainVM is null)
+      {
+        return;
+      }
+      MainVM.CoordinateChanged(s);
+    }
   }
 }
