@@ -13,9 +13,13 @@ namespace GeographicLocation.ViewModels
   public class MainViewModel
   {
 
+    public enum CoordinateFormatType { Decimal, Text };
+    private enum CoordinateType { Latitude, Longitude };
+
     private MainWindow MainView;
     private string jsonFile = "%OneDrive%\\Data\\GeographicLocation.json".TranslatePath();
 
+    public CoordinateFormatType CoordinateFormat { get; set; } = CoordinateFormatType.Decimal;
     public List<Location> Locations { get; set; } = new List<Location>();
     public Location SelectedLocation { get; set; } = new Location();
 
@@ -46,15 +50,50 @@ namespace GeographicLocation.ViewModels
 
     #endregion
 
-    public void CoordinateChanged(Location location)
+    public void CoordinateChanged(Location location, CoordinateFormatType coordinateFormat)
     {
 
       SelectedLocation = location;
-      MainView.LatitudeTextBox.Text = $"{SelectedLocation.Coordinate.Latitude}";
-      MainView.LatitudeFormatedTextBox.Text = $"({VectorDoubleToString(SelectedLocation.Coordinate.Latitude, CoordinateType.Latitude)})";
-      MainView.LongitudeTextBox.Text = $"{SelectedLocation.Coordinate.Longitude}";
-      MainView.LongitudeFormatedTextBox.Text = $"({VectorDoubleToString(SelectedLocation.Coordinate.Longitude, CoordinateType.Longitude)})";
 
+      MainView.LatitudeTextBlock.Text = $"{SelectedLocation.Coordinate.Latitude}";
+      MainView.LatitudeFormatedTextBlock.Text = $"({VectorDoubleToString(SelectedLocation.Coordinate.Latitude, CoordinateType.Latitude)})";
+
+      MainView.LongitudeTextBlock.Text = $"{SelectedLocation.Coordinate.Longitude}";
+      MainView.LongitudeFormatedTextBlock.Text = $"({VectorDoubleToString(SelectedLocation.Coordinate.Longitude, CoordinateType.Longitude)})";
+
+      switch (coordinateFormat)
+      {
+        case CoordinateFormatType.Decimal:
+          MainView.LatitudeTextBox.Text = $"{SelectedLocation.Coordinate.Latitude}";
+          MainView.LongitudeTextBox.Text = $"{SelectedLocation.Coordinate.Longitude}";
+          break;
+        case CoordinateFormatType.Text:
+          MainView.LatitudeTextBox.Text = $"{VectorDoubleToString(SelectedLocation.Coordinate.Latitude, CoordinateType.Latitude)}";
+          MainView.LongitudeTextBox.Text = $"{VectorDoubleToString(SelectedLocation.Coordinate.Longitude, CoordinateType.Longitude)}";
+          break;
+        default:
+          break;
+      }
+
+      MainView.NameTextBox.Text = SelectedLocation.Name;
+
+    }
+
+    public void CoordinateFormatChanged(CoordinateFormatType coordinateFormat)
+    {
+      switch (coordinateFormat)
+      {
+        case CoordinateFormatType.Decimal:
+          MainView.LatitudeTextBox.Text = $"{SelectedLocation.Coordinate.Latitude}";
+          MainView.LongitudeTextBox.Text = $"{SelectedLocation.Coordinate.Longitude}";
+          break;
+        case CoordinateFormatType.Text:
+          MainView.LatitudeTextBox.Text = $"{VectorDoubleToString(SelectedLocation.Coordinate.Latitude, CoordinateType.Latitude)}";
+          MainView.LongitudeTextBox.Text = $"{VectorDoubleToString(SelectedLocation.Coordinate.Longitude, CoordinateType.Longitude)}";
+          break;
+        default:
+          break;
+      }
     }
 
     private void CreateInitialJson()
@@ -83,7 +122,40 @@ namespace GeographicLocation.ViewModels
 
     }
 
-    enum CoordinateType { Latitude, Longitude };
+    private bool Save(bool Exists)
+    {
+
+      double lat, lon;
+      if (!double.TryParse(MainView.LatitudeTextBox.Text, out lat)) { return false; }
+      if (!double.TryParse(MainView.LongitudeTextBox.Text, out lon)) { return false; }
+
+      if (!Exists)
+      {
+        SelectedLocation = new Location();
+      }
+
+      SelectedLocation.Name = MainView.NameTextBox.Text;
+      SelectedLocation.Coordinate = new Coordinate(latitude: lat, longitute: lon);
+
+      if (!Exists)
+      {
+        Locations.Add(SelectedLocation);
+      }
+
+      return true;
+
+    }
+
+    public void SaveJson()
+    {
+      Save(true);
+      SaveJson(jsonFile);
+    }
+
+    public void AddToJson()
+    {
+      Save(false);
+    }
 
     /// <summary>
     /// Vector can be latitude number or longitude number.
@@ -118,7 +190,7 @@ namespace GeographicLocation.ViewModels
       vector %= 1.0;
       //Seconds
       vector *= 60;
-      result = $"{result}{vector.ToString("#.#####")}\" ";
+      result = $"{result}{vector.ToString("0.0000")}\" ";
 
       if (coordinateType == CoordinateType.Latitude)
       {
@@ -132,5 +204,6 @@ namespace GeographicLocation.ViewModels
       return result;
 
     }
+
   }
 }

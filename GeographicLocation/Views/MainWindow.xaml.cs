@@ -38,12 +38,45 @@ namespace GeographicLocation
 
     private void LocationComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-      var s = (Location)((ComboBox)sender).SelectedItem;
-      if (MainVM is null)
-      {
-        return;
-      }
-      MainVM.CoordinateChanged(s);
+
+      if (MainVM is null) { return; }
+      MainVM.CoordinateChanged((Location)((ComboBox)sender).SelectedItem, MainVM.CoordinateFormat);
+
     }
+
+    private void LatitudeFormatedTextBox_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+    {
+      Clipboard.SetText(LongitudeFormatedTextBlock.Text);
+    }
+
+    private void LongitudeFormatedTextBox_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+    {
+      Clipboard.SetText(LongitudeFormatedTextBlock.Text);
+    }
+
+    private void DecimalRadioButton_Checked(object sender, RoutedEventArgs e)
+    {
+      if (MainVM == null) { return; }
+      MainVM.CoordinateFormat = MainViewModel.CoordinateFormatType.Decimal;
+      MainVM.CoordinateFormatChanged(MainViewModel.CoordinateFormatType.Decimal);
+    }
+
+    private void TextRadioButton_Checked(object sender, RoutedEventArgs e)
+    {
+      if (MainVM == null) { return; }
+      MainVM.CoordinateFormat = MainViewModel.CoordinateFormatType.Text;
+      MainVM.CoordinateFormatChanged(MainViewModel.CoordinateFormatType.Text);
+    }
+
+    private void AddButton_Click(object sender, RoutedEventArgs e)
+    {
+      MainVM.AddToJson();
+    }
+
+    private void SaveButton_Click(object sender, RoutedEventArgs e)
+    {
+      MainVM.SaveJson();
+    }
+
   }
 }

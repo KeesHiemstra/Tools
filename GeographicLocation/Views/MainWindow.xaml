@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GeographicLocation"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Geographic location" Height="450" Width="800">
   <Grid Margin="10">
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="auto"/>
@@ -21,12 +21,16 @@
       <RowDefinition Height="auto"/>
       <RowDefinition Height="auto"/>
       <RowDefinition Height="auto"/>
+      <RowDefinition Height="auto"/>
+      <RowDefinition Height="auto"/>
     </Grid.RowDefinitions>
 
     <ComboBox Name="LocationComboBox"
               SelectionChanged="LocationComboBox_SelectionChanged"
+              Width="300"
+              HorizontalAlignment="Left"
               Grid.Column="0"
-              Grid.ColumnSpan="2">
+              Grid.ColumnSpan="9">
       <ComboBox.ItemTemplate>
         <DataTemplate>
           <TextBlock Text="{Binding Name}"/>
@@ -39,12 +43,14 @@
            Grid.Column="0"
            Grid.Row="1"/>
 
-    <TextBlock Name="LatitudeTextBox"
+    <TextBlock Name="LatitudeTextBlock"
                VerticalAlignment="Center"
                Grid.Column="1"
                Grid.Row="1"/>
 
-    <TextBlock Name="LatitudeFormatedTextBox"
+    <TextBlock Name="LatitudeFormatedTextBlock"
+               MouseRightButtonUp="LatitudeFormatedTextBox_MouseRightButtonUp"
+               Margin="10,0,0,0"
                VerticalAlignment="Center"
                Grid.Column="2"
                Grid.Row="1"/>
@@ -54,15 +60,100 @@
            Grid.Column="0"
            Grid.Row="2"/>
 
-    <TextBlock Name="LongitudeTextBox"
+    <TextBlock Name="LongitudeTextBlock"
                VerticalAlignment="Center"
                Grid.Column="1"
                Grid.Row="2"/>
 
-    <TextBlock Name="LongitudeFormatedTextBox"
+    <TextBlock Name="LongitudeFormatedTextBlock"
+               MouseRightButtonUp="LongitudeFormatedTextBox_MouseRightButtonUp"
+               Margin="10,0,0,0"
                VerticalAlignment="Center"
                Grid.Column="2"
                Grid.Row="2"/>
 
+    <Separator Margin="0,0,0,10"
+               Grid.ColumnSpan="9"
+               Grid.Row="3"/>
+
+    <Label Content="Latitude: "
+           Grid.Column="0"
+           Grid.Row="4"/>
+    
+    <TextBox Name="LatitudeTextBox"
+             Width="125"
+             Height="21"
+             HorizontalAlignment="Left"
+             VerticalContentAlignment="Center"
+             Grid.Column="1"
+             Grid.ColumnSpan="2"
+             Grid.Row="4"/>
+    
+    <Label Content="Longitude: "
+           Grid.Column="0"
+           Grid.Row="5"/>
+    
+    <TextBox Name="LongitudeTextBox"
+             Width="125"
+             Height="21"
+             HorizontalAlignment="Left"
+             VerticalContentAlignment="Center"
+             Grid.Column="1"
+             Grid.ColumnSpan="2"
+             Grid.Row="5"/>
+
+    <StackPanel Orientation="Horizontal"
+                Grid.Column="0"
+                Grid.ColumnSpan="4"
+                Grid.Row="6">
+      
+      <Label Content="Coordinate format: "/>
+      <RadioButton Name="DecimalRadioButton" 
+                   Content="Decimal "
+                   IsChecked="True"
+                   Checked="DecimalRadioButton_Checked"
+                   VerticalContentAlignment="Center"
+                   GroupName="CoordinateFormat"/>
+      <RadioButton Name="TextRadioButton"
+                   Content="Text "
+                   Checked="TextRadioButton_Checked"
+                   VerticalContentAlignment="Center"
+                   GroupName="CoordinateFormat"/>
+    
+    </StackPanel>
+
+    <Label Content="Name: "
+           Grid.Column="0"
+           Grid.Row="7"/>
+
+    <TextBox Name="NameTextBox"
+             Width="300"
+             Height="21"
+             HorizontalAlignment="Left"
+             Grid.Column="1"
+             Grid.ColumnSpan="2"
+             Grid.Row="7"/>
+
+    <StackPanel Orientation="Horizontal"
+                Margin="0,10,0,0"
+                Grid.Column="0"
+                Grid.ColumnSpan="9"
+                Grid.Row="8">
+      
+      <Button Name="SaveButton"
+              Content="Save"
+              Click="SaveButton_Click"
+              Width="75"
+              Height="21"
+              Margin="0,0,10,0"/>
+      <Button Name="AddButton"
+              Content="Add"
+              Click="AddButton_Click"
+              Width="75"
+              Height="21"
+              Margin="0,0,10,0"/>
+
+    </StackPanel>
+    
   </Grid>
 </Window>
