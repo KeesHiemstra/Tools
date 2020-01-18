@@ -155,5 +155,16 @@ namespace MedicationSupply.ViewModels
 
     }
 
+    /// <summary>
+    /// Copy the selected medicine name.
+    /// </summary>
+    /// <param name="medicine"></param>
+    public void CopyName(Medicine medicine)
+    {
+
+      Clipboard.SetText(medicine.Name);
+
+    }
+
   }
 }

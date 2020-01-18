@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
 namespace MedicationSupply.Commands
 {
@@ -75,6 +70,18 @@ namespace MedicationSupply.Commands
     (
       "_Order",
       "AddStockOrder",
+      typeof(MainCommands),
+      new InputGestureCollection() { }
+    );
+
+    #endregion
+
+    #region Context [ Copy name ]
+
+    public static readonly RoutedUICommand CopyName = new RoutedUICommand
+    (
+      "Copy _name",
+      "CopyName",
       typeof(MainCommands),
       new InputGestureCollection() { }
     );

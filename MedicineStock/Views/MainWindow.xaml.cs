@@ -63,15 +63,6 @@ namespace MedicationSupply
 
     }
 
-    private void MedicinesDataGrid_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
-    {
-    }
-
-    private void MedicinesDataGrid_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-    {
-
-    }
-
     #region [ Commands ]
 
     #region File
@@ -163,11 +154,26 @@ namespace MedicationSupply
 
     #endregion
 
+    #region Context Copy name
+
+    private void CopyNameCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+    {
+      e.CanExecute = MedicinesDataGrid.SelectedIndex >= 0;
+    }
+
+    private void CopyNameCommand_Execute(object sender, ExecutedRoutedEventArgs e)
+    {
+      MainVM.CopyName((Medicine)((DataGrid)e.Source).CurrentItem);
+    }
+
+    #endregion
+
     #endregion
 
     private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
     {
       MainVM.Closing();
     }
+
   }
 }
