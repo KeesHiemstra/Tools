@@ -1,77 +1,50 @@
-﻿<Window x:Class="MedicineStock.Views.HistoryWindow"
+﻿<Window x:Class="MedicationSupply.Views.HistoryWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MedicineStock.Views"
+        xmlns:local="clr-namespace:MedicationSupply.Views"
         mc:Ignorable="d"
-        Title="History" Height="450" Width="500">
-  <Grid>
-    <FlowDocumentReader>
-      <FlowDocument>
-        <Paragraph>
-          <Run FontSize="20" FontWeight="Bold">
+        Title="History"
+        ShowInTaskbar="False"
+        Height="450" 
+        Width="500">
+  <Grid Margin="10">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+
+    <TextBlock Name="ApplicationTitleTextBlock"
+               FontSize="14"
+               HorizontalAlignment="Center"
+               Grid.Row="0"/>
+
+    <TextBlock Name="VersionTextBlock"
+               HorizontalAlignment="Center"
+               Grid.Row="1"/>
+
+    <TextBlock Name="DiscriptionTextBlock"
+               HorizontalAlignment="Center"
+               Grid.Row="2"/>
+
+    <FlowDocumentScrollViewer Grid.Row="5">
+      <FlowDocument Name="HistoryFlowDocument"
+                    FontFamily="Segoe UI, Microsoft Sans Serif"
+                    FontSize="12">
+        <Paragraph TextAlignment="Left" >
+          <Run FontSize="20" 
+               FontWeight="Bold" 
+               Foreground="Blue">
             History
           </Run>
         </Paragraph>
-
-        <Paragraph>
-          <Run FontSize="16" FontWeight="Heavy">
-            Version 1.0.5.7 (2020-01-19)
-          </Run>
-        </Paragraph>
-        <List>
-          <ListItem>
-            <Paragraph>
-              Add spelling checking.
-            </Paragraph>
-          </ListItem>
-          <ListItem>
-            <Paragraph>
-              Add SelectAll when OnGotFocus at numeric TextBoxes.
-            </Paragraph>
-          </ListItem>
-          <ListItem>
-            <Paragraph>
-              Add History window.
-            </Paragraph>
-          </ListItem>
-        </List>
-        
-        <Paragraph>
-          <Run FontSize="16" FontWeight="Heavy">
-            Version 1.0.4.6 (2020-01-18)
-          </Run>
-        </Paragraph>
-
-        <List>
-          <ListItem>
-            <Paragraph>
-              Add ContextMenu to DataGrid to copy the Name on the clip board.
-            </Paragraph>
-          </ListItem>
-        </List>
-
-        <Paragraph>
-          <Run FontSize="16" FontWeight="Heavy">
-            Version 1.0.3.5 (2019-12-31)
-          </Run>
-        </Paragraph>
-
-        <List>
-          <ListItem>
-            <Paragraph>
-              Moved the source to Tools and renamed the NameSpace to MedicationSupply.
-            </Paragraph>
-          </ListItem>
-        </List>
-
-        <Paragraph>
-          The original source was published in Experiments1912/MedicationSupply1. In my opinion was the original
-          working properly to work with as a tool.
-        </Paragraph>
-        
       </FlowDocument>
-    </FlowDocumentReader>
+    </FlowDocumentScrollViewer>
+
   </Grid>
 </Window>

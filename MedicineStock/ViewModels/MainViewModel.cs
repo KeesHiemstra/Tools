@@ -1,6 +1,6 @@
 ﻿using MedicationSupply.Extensions;
 using MedicationSupply.Models;
-using MedicineStock.Views;
+using MedicationSupply.Views;
 using Newtonsoft.Json;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -169,12 +169,11 @@ namespace MedicationSupply.ViewModels
 
     public void ShowHistory()
     {
-      HistoryWindow history = new HistoryWindow()
+      _ = new HistoryWindow()
       {
         Left = MainView.Left + 20,
         Top = MainView.Top + 20
-      };
-      history.ShowDialog();
+      }.ShowDialog();
     }
 
   }
