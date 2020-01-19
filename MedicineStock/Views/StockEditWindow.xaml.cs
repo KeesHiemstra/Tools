@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 
 namespace MedicationSupply.ViewModels
 {
@@ -39,6 +40,11 @@ namespace MedicationSupply.ViewModels
 
       StockEditViewModel.CloseEdit();
 
+    }
+
+    private void TextBox_GotFocus(object sender, RoutedEventArgs e)
+    {
+      ((TextBox)e.OriginalSource).SelectAll();
     }
   }
 }

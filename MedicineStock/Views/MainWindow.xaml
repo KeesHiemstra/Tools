@@ -32,6 +32,13 @@
       Executed="MedicineCommandMedicineAdd_Execute"/>
     <!--#endregion-->
     
+    <!--#region help -->
+    <CommandBinding
+      CanExecute="HelpHistoryCommand_CanExecute"
+      Command="cmd:MainCommands.History"
+      Executed="HelpHistoryCommand_Execute"/>
+    <!--#endregion-->
+    
     <!--#region Context -->
     <CommandBinding
       CanExecute="CopyNameCommand_CanExecute"
@@ -48,6 +55,7 @@
       <RowDefinition Height="*"/>
     </Grid.RowDefinitions>
 
+    <!--#region [ Menu ] -->
     <Menu Name="Main"
           Grid.Row="0">
       <MenuItem Header="_File">
@@ -58,7 +66,11 @@
       <MenuItem Header="_Add">
         <MenuItem Command="cmd:MainCommands.AddMedicine"/>
       </MenuItem>
+      <MenuItem Header="_?">
+        <MenuItem Command="cmd:MainCommands.History"/>
+      </MenuItem>
     </Menu>
+    <!--#endregion-->
 
     <DataGrid Name="MedicinesDataGrid"
               ItemsSource="{Binding Medicines}"

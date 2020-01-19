@@ -1,0 +1,10 @@
+﻿Version 1.0.5.7 (2020-01-19)
++ Add spelling checking.
++ Add SelectAll when OnGotFocus at numeric TextBoxes.
++ Add History window.
+
+Version 1.0.4.6 (2020-01-18)
++ Add ContextMenu to DataGrid to copy the Name on the clip board.
+
+Version 1.0.3.5 (2019-12-31)
++ Moved the source to Tools and renamed the NameSpace to MedicationSupply.

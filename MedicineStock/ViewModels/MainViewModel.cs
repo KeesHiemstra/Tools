@@ -1,5 +1,6 @@
 ﻿using MedicationSupply.Extensions;
 using MedicationSupply.Models;
+using MedicineStock.Views;
 using Newtonsoft.Json;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -164,6 +165,16 @@ namespace MedicationSupply.ViewModels
 
       Clipboard.SetText(medicine.Name);
 
+    }
+
+    public void ShowHistory()
+    {
+      HistoryWindow history = new HistoryWindow()
+      {
+        Left = MainView.Left + 20,
+        Top = MainView.Top + 20
+      };
+      history.ShowDialog();
     }
 
   }

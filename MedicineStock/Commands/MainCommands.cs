@@ -42,34 +42,14 @@ namespace MedicationSupply.Commands
       new InputGestureCollection() { }
     );
 
-    public static readonly RoutedUICommand AddPresciption = new RoutedUICommand
-    (
-      "_Presciption",
-      "AddPrescription",
-      typeof(MainCommands),
-      new InputGestureCollection() { }
-    );
+    #endregion
 
-    public static readonly RoutedUICommand AddStock = new RoutedUICommand
-    (
-      "_Stock",
-      "AddStock",
-      typeof(MainCommands),
-      new InputGestureCollection() { }
-    );
+    #region Command [ Help ]
 
-    public static readonly RoutedUICommand AddStockCounting = new RoutedUICommand
+    public static readonly RoutedUICommand History = new RoutedUICommand
     (
-      "_Counting",
-      "AddStockCounting",
-      typeof(MainCommands),
-      new InputGestureCollection() { }
-    );
-
-    public static readonly RoutedUICommand AddStockOrder = new RoutedUICommand
-    (
-      "_Order",
-      "AddStockOrder",
+      "_History",
+      "History",
       typeof(MainCommands),
       new InputGestureCollection() { }
     );

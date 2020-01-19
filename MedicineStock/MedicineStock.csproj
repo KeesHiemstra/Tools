@@ -64,6 +64,9 @@
     <Compile Include="ViewModels\PrescriptionListViewModel.cs" />
     <Compile Include="ViewModels\StockEditViewModel.cs" />
     <Compile Include="ViewModels\StockListViewModel.cs" />
+    <Compile Include="Views\HistoryWindow.xaml.cs">
+      <DependentUpon>HistoryWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
@@ -88,6 +91,10 @@
     </Compile>
     <Compile Include="Commands\MainCommands.cs" />
     <Compile Include="Extensions\StingExtensions.cs" />
+    <Page Include="Views\HistoryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -142,6 +149,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\History.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -59,6 +59,8 @@
              Height="50"
              Margin="0,0,0,2"
              VerticalAlignment="Center"
+             SpellCheck.IsEnabled="True"
+             Language="Nl-nl"
              Grid.Column="1"
              Grid.Row="2"/>
 
@@ -72,6 +74,7 @@
              Margin="0,0,0,2"
              HorizontalAlignment="Left"
              VerticalAlignment="Center"
+             GotFocus="TextBox_GotFocus"
              Grid.Column="1"
              Grid.Row="3"/>
 
@@ -86,6 +89,7 @@
              HorizontalAlignment="Left"
              VerticalAlignment="Center"
              ToolTip="The number of days used the medicine."
+             GotFocus="TextBox_GotFocus"
              Grid.Column="1"
              Grid.Row="4"/>
 
@@ -100,6 +104,7 @@
              HorizontalAlignment="Left"
              VerticalAlignment="Center"
              ToolTip="The number of units during the number days."
+             GotFocus="TextBox_GotFocus"
              Grid.Column="1"
              Grid.Row="5"/>
 

@@ -111,43 +111,20 @@ namespace MedicationSupply
 
     #endregion
 
-    #region Prescription
-    private void MedicineCommandPresciptionAdd_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-    {
-      e.CanExecute = MedicinesDataGrid.SelectedCells.Count > 0;
-    }
-
-    private void MedicineCommandPresciptionAdd_Execute(object sender, ExecutedRoutedEventArgs e)
-    {
-
-    }
-
     #endregion
 
-    #region Stock
-    private void MedicineCommandStockAdd_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+    #region Help
+
+    #region History
+
+    private void HelpHistoryCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
     {
-      e.CanExecute = MedicinesDataGrid.SelectedCells.Count > 0;
+      e.CanExecute = true;
     }
 
-    private void MedicineCommandStockCountingAdd_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+    private void HelpHistoryCommand_Execute(object sender, ExecutedRoutedEventArgs e)
     {
-      e.CanExecute = MedicinesDataGrid.SelectedCells.Count > 0;
-    }
-
-    private void MedicineCommandStockCountingAdd_Execute(object sender, ExecutedRoutedEventArgs e)
-    {
-
-    }
-
-    private void MedicineCommandStockOrderAdd_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-    {
-      e.CanExecute = MedicinesDataGrid.SelectedCells.Count > 0;
-    }
-
-    private void MedicineCommandStockOrderAdd_Execute(object sender, ExecutedRoutedEventArgs e)
-    {
-
+      MainVM.ShowHistory();
     }
 
     #endregion
