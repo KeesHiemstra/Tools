@@ -59,6 +59,7 @@ namespace MedicationSupply.Views
 
     private void ShowHistory()
     {
+
       string[] history = MedicineStock.Properties.Resources.History
         .Replace("\r\n","\n")
         .Split('\n');
@@ -172,6 +173,7 @@ namespace MedicationSupply.Views
 
     private void AddParagraph()
     {
+
       var par = BufferToString();
       HistoryFlowDocument.Blocks.Add(
         new Paragraph(

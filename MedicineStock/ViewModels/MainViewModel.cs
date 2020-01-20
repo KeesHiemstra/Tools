@@ -169,11 +169,13 @@ namespace MedicationSupply.ViewModels
 
     public void ShowHistory()
     {
+
       _ = new HistoryWindow()
       {
         Left = MainView.Left + 20,
         Top = MainView.Top + 20
       }.ShowDialog();
+
     }
 
   }
