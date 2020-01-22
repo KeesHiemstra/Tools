@@ -1,10 +1,10 @@
-﻿using MedicationSupply.Models;
-using MedicationSupply.ViewModels;
+﻿using MedicationStock.Models;
+using MedicationStock.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace MedicationSupply.Views
+namespace MedicationStock.Views
 {
   /// <summary>
   /// Interaction logic for StockListWindow.xaml

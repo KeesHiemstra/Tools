@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace MedicationSupply.Extensions
+namespace MedicationStock.Extensions
 {
   public static class StingExtensions
   {

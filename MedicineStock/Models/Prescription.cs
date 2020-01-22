@@ -2,7 +2,7 @@
 using System;
 using System.ComponentModel;
 
-namespace MedicationSupply.Models
+namespace MedicationStock.Models
 {
   public class Prescription : INotifyPropertyChanged
   {

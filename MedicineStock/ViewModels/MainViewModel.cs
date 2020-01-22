@@ -1,12 +1,12 @@
-﻿using MedicationSupply.Extensions;
-using MedicationSupply.Models;
-using MedicationSupply.Views;
+﻿using MedicationStock.Extensions;
+using MedicationStock.Models;
+using MedicationStock.Views;
 using Newtonsoft.Json;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
 
-namespace MedicationSupply.ViewModels
+namespace MedicationStock.ViewModels
 {
   public class MainViewModel
   {

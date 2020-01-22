@@ -1,8 +1,8 @@
-﻿using MedicationSupply.Models;
-using MedicationSupply.Views;
+﻿using MedicationStock.Models;
+using MedicationStock.Views;
 using System;
 
-namespace MedicationSupply.ViewModels
+namespace MedicationStock.ViewModels
 {
   public class MedicineViewModel
   {

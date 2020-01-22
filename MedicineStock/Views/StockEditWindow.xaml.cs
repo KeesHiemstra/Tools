@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace MedicationSupply.ViewModels
+namespace MedicationStock.ViewModels
 {
   /// <summary>
   /// Interaction logic for StockEditWindow.xaml

@@ -1,9 +1,9 @@
-﻿using MedicationSupply.Models;
-using MedicationSupply.Views;
+﻿using MedicationStock.Models;
+using MedicationStock.Views;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace MedicationSupply.ViewModels
+namespace MedicationStock.ViewModels
 {
   public class PrescriptionListViewModel
   {

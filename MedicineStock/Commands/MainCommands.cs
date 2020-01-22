@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace MedicationSupply.Commands
+namespace MedicationStock.Commands
 {
   public static class MainCommands
   {

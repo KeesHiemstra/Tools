@@ -3,7 +3,7 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Documents;
 
-namespace MedicationSupply.Views
+namespace MedicationStock.Views
 {
   /// <summary>
   /// Interaction logic for HistoryWindow.xaml

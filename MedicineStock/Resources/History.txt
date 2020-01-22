@@ -1,4 +1,8 @@
-﻿Version 1.0.5.8 (2012-01-19)
+﻿Version 1.0.5.9 (2020-01-22)
+* Added README.md.
+* Renamed the NameSpace to MedicationStock
+
+Version 1.0.5.8 (2012-01-19)
 * Translate History.txt to a FlowDocumentScrollViewer.
 
 Version 1.0.5.7 (2020-01-19)

@@ -1,7 +1,7 @@
-﻿<Application x:Class="MedicationSupply.App"
+﻿<Application x:Class="MedicationStock.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:MedicationSupply"
+             xmlns:local="clr-namespace:MedicationStock"
              StartupUri="Views\MainWindow.xaml">
     <Application.Resources>
          

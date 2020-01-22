@@ -55,12 +55,14 @@
   <ItemGroup>
     <Compile Include="Extensions\DbContextExtensions.cs" />
     <Compile Include="Extensions\PathExtensions.cs" />
+    <Compile Include="Extensions\WeatherExtensions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="README.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

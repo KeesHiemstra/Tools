@@ -1,7 +1,7 @@
-﻿using MedicationSupply.Models;
+﻿using MedicationStock.Models;
 using System.Windows;
 
-namespace MedicationSupply.Views
+namespace MedicationStock.Views
 {
   /// <summary>
   /// Interaction logic for MedicineWindow.xaml

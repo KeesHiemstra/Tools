@@ -1,10 +1,10 @@
-﻿using MedicationSupply.Models;
-using MedicationSupply.Views;
+﻿using MedicationStock.Models;
+using MedicationStock.Views;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 
-namespace MedicationSupply.ViewModels
+namespace MedicationStock.ViewModels
 {
   public class StockListViewModel : INotifyPropertyChanged
   {
