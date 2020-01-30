@@ -1,9 +1,12 @@
-﻿using ExecuteMonitor.Models;
+﻿using CHi.Extensions;
+using ExecuteMonitor.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -50,9 +53,9 @@ namespace ExecuteMonitor
     {
 
       Log.Write($"{Monitors.Count} monitors available");
-      foreach (Monitor item in Monitors)
+      foreach (Monitor monitor in Monitors)
       {
-        ProcessMonitor(item);
+        ProcessMonitor(monitor);
       }
 
     }
@@ -60,9 +63,45 @@ namespace ExecuteMonitor
     private static void ProcessMonitor(Monitor monitor)
     {
 
-      Log.Write($"Working on {monitor.MonitorName}");
+      Log.Write($"Working on '{monitor.MonitorName}', {monitor.Checks.Count} checks available");
+      foreach (Check check in monitor.Checks)
+      {
+        ProcessCheck(check, monitor);
+      }
 
+    }
 
+    private static void ProcessCheck(Check check, Monitor monitor)
+    {
+
+      Log.Write($"Working on '{check.CheckFileName}'");
+      if (!File.Exists(check.CheckFileName.TranslatePath()))
+      {
+        Log.Write($"'{check.CheckFileName}' doesn't exist");
+        return;
+      }
+      
+      FileInfo fileInfo = new FileInfo(check.CheckFileName.TranslatePath());
+      check.LastActivity = fileInfo.LastWriteTime;
+
+      TimeSpan timeSpan = DateTime.Now - fileInfo.LastWriteTime;
+      if (timeSpan.TotalMinutes > check.MaximumTime.TotalMinutes)
+      {
+        Log.Write($"'{check.CheckFileName}' is older then {check.MaximumTime.ToString()}");
+        WriteMail(check, monitor);
+        return;
+      }
+
+      Log.Write($"No action needed for '{check.CheckFileName}' ({(int)timeSpan.TotalMinutes} minutes)");
+
+    }
+
+    private static void WriteMail(Check check, Monitor monitor)
+    {
+      MailMessage mail = new MailMessage();
+      mail.From = new MailAddress("chi@xs4all.nl", "Joost");
+      mail.Subject = $"Warning - {monitor.MonitorName} found a old {check.CheckFileName}";
+      mail.IsBodyHtml = true;
     }
 
     private static bool LoadMonitorsJson()
