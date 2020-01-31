@@ -98,10 +98,41 @@ namespace ExecuteMonitor
 
     private static void WriteMail(Check check, Monitor monitor)
     {
+
       MailMessage mail = new MailMessage();
       mail.From = new MailAddress("chi@xs4all.nl", "Joost");
       mail.Subject = $"Warning - {monitor.MonitorName} found a old {check.CheckFileName}";
       mail.IsBodyHtml = true;
+      GetMailAddresses(mail.To, monitor.MailTo);
+      GetMailAddresses(mail.CC, monitor.MailCc);
+      GetMailAddresses(mail.Bcc, monitor.MailBcc);
+      mail.Body = $"<p>'{monitor.MonitorName}' with '{check.CheckFileName}' is out of date.</p>";
+
+      try
+      {
+        SmtpClient smtpClient = new SmtpClient("smtp.xs4all.nl");
+        smtpClient.Send(mail);
+        mail.Dispose();
+        Log.Write($"'{monitor.MonitorName}' mail has been send");
+      }
+      catch (Exception ex)
+      {
+        Log.Write($"'{monitor.MonitorName}' mail caused an exception: {ex.Message}");
+      }
+
+    }
+
+    private static void GetMailAddresses(MailAddressCollection addressCollection, string addresses)
+    {
+
+      if (string.IsNullOrEmpty(addresses)) { return; }
+
+      string[] addressList = addresses.Split(new char[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
+      foreach (string address in addressList)
+      {
+        addressCollection.Add(address);
+      }
+
     }
 
     private static bool LoadMonitorsJson()
