@@ -10,7 +10,7 @@ namespace CHi.Extensions
 	{
 		#region Time
 		/// <summary>
-		/// Convert Unix time stamp (number of seconds since epoch to date/time.
+		/// Convert Unix time stamp (number of seconds since epoch to date/time).
 		/// </summary>
 		/// <param name="unixTimeStamp"></param>
 		/// <returns></returns>
