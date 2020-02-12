@@ -2,8 +2,10 @@
 using MedicationStock.Models;
 using MedicationStock.Views;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Windows;
 
 namespace MedicationStock.ViewModels
@@ -91,11 +93,15 @@ namespace MedicationStock.ViewModels
       JsonFile = JsonFile.TranslatePath();
       if (File.Exists(JsonFile))
       {
+        List<Medicine> medicines = new List<Medicine>();
         using (StreamReader stream = File.OpenText(JsonFile))
         {
           string json = stream.ReadToEnd();
-          Medicines = JsonConvert.DeserializeObject<ObservableCollection<Medicine>>(json);
+          medicines = JsonConvert.DeserializeObject<ObservableCollection<Medicine>>(json)
+            .OrderBy(x => x.Id)
+            .ToList();
         }
+        Medicines = new ObservableCollection<Medicine>(medicines);
       }
 
     }

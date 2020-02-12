@@ -11,3 +11,8 @@ changes.
 Then I started a new experiment, using *MVVM pattern*.
 
 It was so useful that I move the experiment to the *Tools* folder.
+
+### Wishes and bugs
+
+- [X] Order the medicines.
+- [X] A new medicine is not saved.

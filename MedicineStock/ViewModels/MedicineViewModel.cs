@@ -21,9 +21,11 @@ namespace MedicationStock.ViewModels
     {
 
       MainVM = main;
+      bool exists = false;
       if (medicine != null)
       {
         Medicine = medicine;
+        exists = true;
       }
       else
       {
@@ -31,9 +33,10 @@ namespace MedicationStock.ViewModels
         {
           StartDate = DateTime.Now.Date
         };
+        exists = false;
       }
 
-      ShowMedicineWindow(parent, true);
+      ShowMedicineWindow(parent, exists);
 
     }
 

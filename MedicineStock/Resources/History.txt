@@ -1,4 +1,8 @@
-﻿Version 1.0.5.9 (2020-01-22)
+﻿Version 1.0.5.10 (2020-02-12)
+* The medicines is ordered on the Id.
+* Bug fix: A new medicine was not saved.
+
+Version 1.0.5.9 (2020-01-22)
 * Added README.md.
 * Renamed the NameSpace to MedicationStock
 
