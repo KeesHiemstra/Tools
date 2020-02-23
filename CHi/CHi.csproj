@@ -61,6 +61,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="My Code Snippets\classRegions.snippet" />
+    <None Include="My Code Snippets\cp.snippet" />
+    <None Include="My Code Snippets\jsonread.snippet" />
+    <None Include="My Code Snippets\jsonwrite.snippet" />
+    <None Include="My Code Snippets\notifInterface.snippet" />
+    <None Include="My Code Snippets\notifmethod.snippet" />
+    <None Include="My Code Snippets\observable field.snippet" />
+    <None Include="My Code Snippets\observable propery.snippet" />
+    <None Include="My Code Snippets\propnotif.snippet" />
     <None Include="packages.config" />
     <None Include="README.md" />
   </ItemGroup>

@@ -5,6 +5,10 @@ of useful sources.
 
 *chi* is my oldest network account name, back to 1987.
 
+# Extensions
+
+This folder is a collection of developed extensions.
+
 ### Extensions\DbContextExtensions
 
 Show the private method IsDisposed of 
@@ -32,3 +36,6 @@ Replace the part of PathName to %OneDrive% if it exists.
 Convert Unix time stamp (number of seconds since epoch 
 to date/time).
 
+## My Code Snippets
+
+This folder contains own developed snippets for Visual Studio 2019.

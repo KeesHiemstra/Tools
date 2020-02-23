@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>jsonread</Title>
+			<Shortcut>jsonread</Shortcut>
+			<Description>Code snippet for 'jsonread'</Description>
+			<Author>Kees Hiemstra</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+				<SnippetType>SurroundsWith</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>path</ID>
+					<Default>path</Default>
+					<ToolTip>Path</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>ToRead</ID>
+					<Default>toRead</Default>
+					<ToolTip>Referece</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>Class</ID>
+					<Default>class</Default>
+					<ToolTip>Declaration class</ToolTip>
+				</Literal>
+			</Declarations>
+			<Code Language="csharp"><![CDATA[string jsonPath = "$path$";$selected$ $end$
+			using (StreamReader stream = File.OpenText(jsonPath))
+			{
+				  string json = stream.ReadToEnd();
+				  $ToRead$ = JsonConvert.DeserializeObject<$Class$>(json);
+			}]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>

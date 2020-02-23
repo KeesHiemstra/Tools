@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>jsonwrite</Title>
+			<Shortcut>jsonwrite</Shortcut>
+			<Description>Code snippet for 'jsonwrite'</Description>
+			<Author>Kees Hiemstra</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+				<SnippetType>SurroundsWith</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>path</ID>
+					<Default>path</Default>
+					<ToolTip>Path</ToolTip>
+				</Literal>
+				<Literal>
+					<ID>ToWrite</ID>
+					<Default>toWrite</Default>
+					<ToolTip>Referece</ToolTip>
+				</Literal>
+			</Declarations>
+			<Code Language="csharp"><![CDATA[string json = JsonConvert.SerializeObject($ToWrite$, Formatting.Indented);
+			using (StreamWriter stream = new StreamWriter($path$))
+			{
+				stream.Write(json);
+			}
+			$selected$ $end$]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>

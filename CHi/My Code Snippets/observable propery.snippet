@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>ObservableCollectionProperty</Title>
+			<Shortcut>observableProp</Shortcut>
+			<Description>Code snippet for ObservableCollection property</Description>
+			<Author>Kees Hiemstra</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+				<SnippetType>SurroundsWith</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>type</ID>
+					<ToolTip>Property type</ToolTip>
+					<Default>int</Default>
+				</Literal>
+				<Literal>
+					<ID>property</ID>
+					<ToolTip>The variable backing this property</ToolTip>
+					<Default>myVar</Default>
+				</Literal>
+			</Declarations>
+			<Code Language="csharp"><![CDATA[ObservableCollection<$type$> $property$ { get; set; } = new ObservableCollection<$type$>(); $end$]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>
