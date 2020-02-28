@@ -7,6 +7,8 @@ The picture had no extension.
 ### Wish list
 
 - [ ] Hide the small pictures.
+- [ ] Find the correct extension of the picture.
+- [X] Make the folder don't hard coded.
 - [X] Order the files on date descending.
 - [X] Use a slide-strip.
 - [X] Picture with size and date.

@@ -37,8 +37,24 @@ namespace CopyLogonBackgroundPicture
 
     private void CollectDetails()
     {
-      string folder = @"C:\Users\chi\AppData\Local\Packages\Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy\LocalState\Assets";
-      IEnumerable<string> fileNames = Directory.EnumerateFiles(folder);
+      string folder = $"C:\\Users\\{Environment.UserName}" +
+        $"\\AppData\\Local\\Packages\\" +
+        $"Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy" +
+        $"\\LocalState\\Assets";
+
+      IEnumerable<string> fileNames = null;
+      try
+      {
+        fileNames = Directory.EnumerateFiles(folder);
+      }
+      catch (Exception ex)
+      {
+        MessageBox.Show(ex.Message,
+          "Error opening folder",
+          MessageBoxButton.OK,
+          MessageBoxImage.Error);
+        Environment.Exit(1);
+      }
 
       foreach (string fileName in fileNames)
       {
