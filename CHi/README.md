@@ -29,6 +29,25 @@ Translate the PathName with %OneDrive% to the full path.
 
 Replace the part of PathName to %OneDrive% if it exists.
 
+### Extensions\ServiceExtensions
+
+#### IsStarted(string, [bool], [bool]) : bool
+
+Test if the service is running.
+
+##### Example 1
+
+``` C#
+Console.WriteLine(ServiceExtensions.IsStarted("MSSQLServer", true));
+```
+
+Test if `MSSQLServer` is started. It shows a message box if it is not running.
+
+#### DoesExist(string) : bool
+
+Test if the service does exists.
+
+
 ### Extensions\WeatherExtensions
 
 #### ConvertUnixTimeToDate()
