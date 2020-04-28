@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace CHi.Extensions
 {
+	/*
+	 * Version 1.0.0.1 (2020-02-01)
+	 * - Added DateTime ConvertUnixTimeToDate(int)
+	 */
+	 
 	public static class WeatherExtensions
 	{
 		#region Time
