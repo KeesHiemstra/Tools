@@ -6,6 +6,8 @@
         xmlns:local="clr-namespace:CopyLogonBackgroundPicture"
         mc:Ignorable="d"
         Title="Logon background"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
         Height="625" 
         Width="800">
   <Grid>
