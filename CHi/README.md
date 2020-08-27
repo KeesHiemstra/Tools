@@ -5,18 +5,18 @@ of useful sources.
 
 *chi* is my oldest network account name, back to 1987.
 
-# Extensions
+# .\Extensions
 
 This folder is a collection of developed extensions.
 
-### Extensions\DbContextExtensions
+### .\Extensions\DbContextExtensions
 
 Show the private method IsDisposed of 
 'System.Data.Entity.Internal.InternalContext'.
 
 By some reason the context is closed. 
 
-#### Extensions\PathExtensions
+#### .\Extensions\PathExtensions
 
 %OneDrive% is a environment variable. The system variable 
 is added automatically added (to my experience).
@@ -29,7 +29,7 @@ Translate the PathName with %OneDrive% to the full path.
 
 Replace the part of PathName to %OneDrive% if it exists.
 
-### Extensions\ServiceExtensions
+### .\Extensions\ServiceExtensions
 
 #### IsStarted(string, [bool], [bool]) : bool
 
@@ -48,13 +48,20 @@ Test if `MSSQLServer` is started. It shows a message box if it is not running.
 Test if the service does exists.
 
 
-### Extensions\WeatherExtensions
+### .\Extensions\WeatherExtensions
 
 #### ConvertUnixTimeToDate()
 
 Convert Unix time stamp (number of seconds since epoch 
 to date/time).
 
-## My Code Snippets
+## .\My Code Snippets
 
 This folder contains own developed snippets for Visual Studio 2019.
+
+# .\Src
+
+## .\Src\Log.cs
+
+A static log source.
+
