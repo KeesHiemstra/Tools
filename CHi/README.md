@@ -59,6 +59,14 @@ to date/time).
 
 This folder contains own developed snippets for Visual Studio 2019.
 
+To import the saved snippets in another environment (select only none existed):
+
+``` 
+%OneDrive%\Documents\Visual Studio 2019\Code Snippets\Visual C#\My Code Snippets
+```
+
+Copy the files the updated snippets.
+
 # .\Src
 
 ## .\Src\Log.cs
