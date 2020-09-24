@@ -1,0 +1,20 @@
+﻿Version 1.0.3.5 (2020-09-24)
+* Extended report 'Coffee usage' with min and max.
+
+Version 1.0.3.4 (2020-09-24)
+* Added report 'Coffee usage'.
+
+Version 1.0.2.3 (2020-09-23)
+* Bug fix: MainDataGrid was not refreshed it has focus.
+* Enabled new journal record.
+* Enabled multi selection.
+* Added OpenJournal (double click).
+
+Version 1.0.1.2 (2020-09-19)
+* Added report 'Opened articles'.
+
+Version 1.0.0.1 (2020-09-18)
+* Filter implemented.
+
+Version 1.0.0.0 (2020-09-17)
+* Initial version.
