@@ -37,6 +37,14 @@ namespace MaintJournal.Commands
 				}
 			);
 
+		public static readonly RoutedUICommand Restore = new RoutedUICommand
+			(
+				"_Restore",
+				"Restore",
+				typeof(MainWindowCommands),
+				new InputGestureCollection() { }
+			);
+
 		public static readonly RoutedUICommand RefreshJournals = new RoutedUICommand
 			(
 				"_Refresh",

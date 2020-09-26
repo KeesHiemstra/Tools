@@ -1,20 +1,13 @@
 ﻿using CHi.Log;
+using CHi.Extensions;
+
 using MaintJournal.ViewModels;
-using System;
-using System.Collections.Generic;
+
+using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace MaintJournal
 {
@@ -23,7 +16,7 @@ namespace MaintJournal
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-		private MainViewModel VM;
+		private readonly MainViewModel VM;
 		
 		public MainWindow()
 		{
@@ -69,6 +62,21 @@ namespace MaintJournal
 		private void BackupCommand_Execute(object sender, ExecutedRoutedEventArgs e)
 		{
 			VM.Backup();
+		}
+		#endregion
+
+		#region Restore command
+		private void RestoreCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+		{
+			e.CanExecute = File.Exists(VM.Options.RestoreFile.TranslatePath()) &&
+				Assembly.GetEntryAssembly().Location.ToLower() != 
+					@"%OneDrive\Bin\MaintJournal.exe%".ToLower() &&
+					VM.Options.DbName.ToLower() != "joost";
+		}
+
+		private void RestoreCommand_Execute(object sender, ExecutedRoutedEventArgs e)
+		{
+			VM.Restore();
 		}
 		#endregion
 
@@ -161,7 +169,7 @@ namespace MaintJournal
 
 		private void FilterBorden_KeyUp(object sender, KeyEventArgs e)
 		{
-			VM.Keyboard(sender, e);
+			VM.FilterKeyboard(sender, e);
 		}
 
 		private void MainDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -169,5 +177,29 @@ namespace MaintJournal
 			VM.DoubleClickDataGrid(sender, e);
 		}
 
+		private void FilterMessageTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+		{
+			//VM.CanGoto = !string.IsNullOrWhiteSpace(FilterMessageTextBox.Text) ||
+			//	FilterEventComboBox.SelectedIndex > 0;
+			//VM.GotoFilter();
+		}
+
+		private void FilterEventComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+		{
+			//if (VM == null) { return; }
+			//VM.CanGoto = !string.IsNullOrWhiteSpace(FilterMessageTextBox.Text) || 
+			//	FilterEventComboBox.SelectedIndex > 0;
+			//VM.GotoFilter();
+		}
+
+		private void PreviousButton_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void NextButton_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
 	}
 }

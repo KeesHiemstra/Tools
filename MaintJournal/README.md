@@ -14,3 +14,6 @@ The first I added was setup the reports.
 
 Such a report can help to cleanup the raw data.
 
+### Wish list
+
+- [ ] Chanced an event, the 'Event filter' is not updated.

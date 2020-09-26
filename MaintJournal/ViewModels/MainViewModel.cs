@@ -10,7 +10,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data.Entity;
-using System.Data.Entity.Core.Mapping;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -26,6 +25,7 @@ namespace MaintJournal.ViewModels
 
 		private JournalDbContext db;
 		public MainWindow View;
+		private ObservableCollection<Journal> filtered = new ObservableCollection<Journal>();
 
 		#endregion
 
@@ -33,10 +33,21 @@ namespace MaintJournal.ViewModels
 
 		public JournalDbContext Db { get => db; set => db = value; }
 		public OptionsViewModel Options { get; set; }
-		public ObservableCollection<Journal> Journals { get; set; } = new ObservableCollection<Journal>();
-		public ObservableCollection<Journal> Filtered { get; set; } = new ObservableCollection<Journal>();
+		public ObservableCollection<Journal> Journals { get; set; } =
+			new ObservableCollection<Journal>();
+		public ObservableCollection<Journal> Filtered { get => filtered; set => filtered = value; }
 
-		public int JournalsCount { get => Journals.Count;	}
+		public bool CanGoto { get; set; }
+
+		public int JournalsCount { get => Journals.Count; }
+		public int FilteredCount
+		{
+			get
+			{
+				if (Filtered == null) return 0;
+				return Filtered.Count;
+			}
+		}
 
 		#endregion
 
@@ -51,6 +62,7 @@ namespace MaintJournal.ViewModels
 			View.MainDataGrid.ItemsSource = Journals;
 			GetJournalEvents();
 			View.FilterMessageTextBox.Focus();
+			UpdateFilterText();
 		}
 
 		#endregion
@@ -99,8 +111,8 @@ namespace MaintJournal.ViewModels
 		private void NotifyPropertyChanged(string propertyName = "")
 		{
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-			Log.Write("Notification from MainViewModel");
 			GetJournals(true);
+			GetJournalEvents();
 		}
 
 		private void OpenOptions()
@@ -144,9 +156,12 @@ namespace MaintJournal.ViewModels
 
 			try
 			{
-				using JournalDbContext db = new JournalDbContext(Options.DbConnection);
-				db.Database.ExecuteSqlCommand(TransactionalBehavior.DoNotEnsureTransaction, sql);
+				Db.Database.ExecuteSqlCommand(TransactionalBehavior.DoNotEnsureTransaction, sql);
 				Log.Write($"Database '{Options.DbConnection}' is backed up");
+				MessageBox.Show($"Backup created successful",
+					"Backup",
+					MessageBoxButton.OK,
+					MessageBoxImage.Information);
 			}
 			catch (Exception ex)
 			{
@@ -157,11 +172,104 @@ namespace MaintJournal.ViewModels
 					MessageBoxImage.Exclamation);
 				return;
 			}
+		}
 
-			MessageBox.Show($"Backup created successful",
-				"Backup",
-				MessageBoxButton.OK,
-				MessageBoxImage.Information);
+		#endregion
+
+		#region Restore()
+
+		internal void Restore()
+		{
+			if (!File.Exists(Options.RestoreFile.TranslatePath()))
+			{
+				Log.Write($"File '{Options.RestoreFile}' doesn't exist");
+				MessageBox.Show($"File '{Options.RestoreFile}' doesn't exist",
+					"Restore",
+					MessageBoxButton.OK,
+					MessageBoxImage.Warning);
+				return;
+			}
+
+			if (MessageBox.Show($"Do you restore the file '{Options.RestoreFile}?'",
+				"Restore",
+				MessageBoxButton.YesNoCancel,
+				MessageBoxImage.Question) == MessageBoxResult.Yes)
+			{
+				string temp = "C:\\Temp\\RestoreFile.bak";
+
+				if (File.Exists(temp))
+				{
+					Log.Write($"Previous copy '{temp}' does still exist");
+					if (MessageBox.Show($"Previous copy '{temp}' does still exist." +
+						$"Do you overwrite the file?",
+						"Restore",
+						MessageBoxButton.YesNoCancel,
+						MessageBoxImage.Question) == MessageBoxResult.Yes)
+					{
+						try
+						{
+							File.Delete(temp);
+							Log.Write($"{temp} is deleted");
+						}
+						catch (Exception ex)
+						{
+							Log.Write($"Can not delete {temp}", ex.Message);
+							MessageBox.Show($"Can not delete {temp}\n{ex.Message}");
+							return;
+						}
+					}
+				}
+
+				try
+				{
+					File.Copy(Options.RestoreFile.TranslatePath(), temp);
+					Log.Write($"'{Options.RestoreFile}' is copied to '{temp}'");
+				}
+				catch (Exception ex)
+				{
+					Log.Write($"Error copying '{Options.RestoreFile.TranslatePath()}' to " +
+						$"'{temp}'", ex.Message);
+					MessageBox.Show($"Error copying {Options.RestoreFile}\nto {temp}",
+						"Restore",
+						MessageBoxButton.OK,
+						MessageBoxImage.Error);
+					return;
+				}
+
+				string sql = $"USE [master] ALTER DATABASE [{Options.DbName}] " +
+					$"SET SINGLE_USER WITH ROLLBACK IMMEDIATE RESTORE DATABASE [{Options.DbName}] " +
+					$"FROM DISK = N'{temp}' WITH FILE = 1, NOUNLOAD, REPLACE, STATS = 5 " +
+					$"ALTER DATABASE [{Options.DbName}] SET MULTI_USER";
+
+				try
+				{
+					Db.Database.ExecuteSqlCommand(TransactionalBehavior.DoNotEnsureTransaction, sql);
+
+					Log.Write($"'{Options.RestoreFile}' is restored");
+					MessageBox.Show($"Restore is successful",
+						"Restore",
+						MessageBoxButton.OK,
+						MessageBoxImage.Information);
+
+					try
+					{
+						File.Delete(temp);
+					}
+					catch (Exception ex)
+					{
+						Log.Write($"Can not delete '{temp}'", ex.Message);
+					}
+				}
+				catch (Exception ex)
+				{
+					Log.Write($"Error restore the file {Options.RestoreFile}", ex.Message);
+					MessageBox.Show(ex.Message,
+						"Restore exception",
+						MessageBoxButton.OK,
+						MessageBoxImage.Exclamation);
+					return;
+				}
+			}
 		}
 
 		#endregion
@@ -187,7 +295,7 @@ namespace MaintJournal.ViewModels
 			report.ShowReport();
 		}
 
-		internal void Keyboard(object sender, KeyEventArgs e)
+		internal void FilterKeyboard(object sender, KeyEventArgs e)
 		{
 			if (sender == null) { return; }
 			if (e.Key == Key.Enter)
@@ -202,7 +310,7 @@ namespace MaintJournal.ViewModels
 
 			View.MainDataGrid.ItemsSource = null;
 
-			switch (View.FilterEventListBox.SelectedIndex)
+			switch (View.FilterEventComboBox.SelectedIndex)
 			{
 				case 0:
 					filtered = Journals
@@ -220,7 +328,7 @@ namespace MaintJournal.ViewModels
 					break;
 				default:
 					filtered = Journals
-						.Where(x => x.Event == View.FilterEventListBox.SelectedItem.ToString())
+						.Where(x => x.Event == View.FilterEventComboBox.SelectedItem.ToString())
 						.ToList();
 					break;
 			}
@@ -236,6 +344,7 @@ namespace MaintJournal.ViewModels
 
 			Filtered = new ObservableCollection<Journal>(filtered);
 			View.MainDataGrid.ItemsSource = Filtered;
+			UpdateFilterText();
 		}
 
 		internal void ClearFilter()
@@ -243,11 +352,37 @@ namespace MaintJournal.ViewModels
 			View.MainDataGrid.ItemsSource = null;
 			View.MainDataGrid.ItemsSource = Journals;
 			Filtered = null;
+			UpdateFilterText();
+		}
+
+		internal void UpdateFilterText()
+		{
+			NotifyPropertyChanged("FilteredCount");
+
+			bool isFiltered = Filtered != null &&
+				Filtered.Count > 0 &&
+				Filtered.Count != JournalsCount;
+
+			if (isFiltered)
+			{
+				View.FilterStatus.Visibility = Visibility.Visible;
+			}
+			else
+			{
+				View.FilterStatus.Visibility = Visibility.Collapsed;
+			}
 		}
 
 		internal void GotoFilter()
 		{
-			throw new NotImplementedException();
+			if (CanGoto)
+			{
+				View.GotoBorder.Visibility = Visibility.Visible;
+			}
+			else
+			{
+				View.GotoBorder.Visibility = Visibility.Hidden;
+			}
 		}
 
 		internal void CloseWindow()
@@ -260,25 +395,26 @@ namespace MaintJournal.ViewModels
 			View.MainDataGrid.ItemsSource = null;
 			GetJournals();
 			View.MainDataGrid.ItemsSource = Journals;
+			NotifyPropertyChanged("FilteredCount");
 			Log.Write($"Connection is changed to {Options.DbName}");
 		}
 
 		private void GetJournalEvents()
 		{
-			View.FilterEventListBox.Items.Clear();
+			View.FilterEventComboBox.Items.Clear();
 
 			//Add predefined items
-			View.FilterEventListBox.Items.Add(new TextBlock()
+			View.FilterEventComboBox.Items.Add(new TextBlock()
 			{
 				Text = "< all >",
 				FontStyle = FontStyles.Italic,
 			});
-			View.FilterEventListBox.Items.Add(new TextBlock()
+			View.FilterEventComboBox.Items.Add(new TextBlock()
 			{
 				Text = "< empty >",
 				FontStyle = FontStyles.Italic,
 			});
-			View.FilterEventListBox.Items.Add(new TextBlock()
+			View.FilterEventComboBox.Items.Add(new TextBlock()
 			{
 				Text = "< not empty >",
 				FontStyle = FontStyles.Italic,
@@ -292,9 +428,11 @@ namespace MaintJournal.ViewModels
 				.OrderBy(x => x)
 				.ToList())
 			{
-				View.FilterEventListBox.Items.Add(item);
+				View.FilterEventComboBox.Items.Add(item);
 			}
-			View.FilterEventListBox.SelectedIndex = 0;
+
+			//Show < all > as option
+			View.FilterEventComboBox.SelectedIndex = 0;
 		}
 
 	}

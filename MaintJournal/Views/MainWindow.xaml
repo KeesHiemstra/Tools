@@ -27,6 +27,10 @@
       Command="cmd:MainWindowCommands.Backup"
       Executed="BackupCommand_Execute" />
     <CommandBinding
+      CanExecute="RestoreCommand_CanExecute"
+      Command="cmd:MainWindowCommands.Restore"
+      Executed="RestoreCommand_Execute" />
+    <CommandBinding
       CanExecute="RefreshJournals_CanExecute"
       Command="cmd:MainWindowCommands.RefreshJournals"
       Executed="RefreshJournals_Execute"/>
@@ -60,6 +64,7 @@
       <MenuItem Header="_File">
         <MenuItem Command="cmd:MainWindowCommands.Options" />
         <MenuItem Command="cmd:MainWindowCommands.Backup" />
+        <MenuItem Command="cmd:MainWindowCommands.Restore" />
         <Separator />
         <MenuItem Command="cmd:MainWindowCommands.Exit" />
       </MenuItem>
@@ -87,7 +92,13 @@
       <StatusBarItem>
         <StackPanel Orientation="Horizontal">
           <TextBlock Text="Count = " />
-          <TextBlock Text="{Binding JournalsCount}" />
+          <StackPanel x:Name="FilterStatus"
+                      Orientation="Horizontal"
+                      Visibility="Hidden">
+            <TextBlock Text="{Binding FilteredCount}"/>
+            <TextBlock Text=" of "/>
+          </StackPanel>
+          <TextBlock x:Name="JournalsCount" Text="{Binding JournalsCount}"/>
         </StackPanel>
       </StatusBarItem>
       <StatusBarItem />
@@ -104,15 +115,17 @@
           <TextBox
             Name="FilterMessageTextBox"
             Width="150"
-            Margin="0,0,10,0" />
+            Margin="0,0,10,0"
+            TextChanged="FilterMessageTextBox_TextChanged"/>
 
           <TextBlock VerticalAlignment="Center" Text="Event: " />
           <ComboBox
-            Name="FilterEventListBox"
+            Name="FilterEventComboBox"
             Width="250"
             Margin="0,0,10,0"
             IsEditable="False"
-            IsReadOnly="True" />
+            IsReadOnly="True"
+            SelectionChanged="FilterEventComboBox_SelectionChanged"/>
 
           <Button
             Name="ApplyButton"
@@ -126,13 +139,30 @@
             Margin="0,0,10,0"
             Click="ClearButton_Click"
             Content="Clear" />
-          <Button
-            Name="GotoButton"
-            Width="40"
-            Margin="0,0,10,0"
-            Click="GotoButton_Click"
-            Content="Goto"
-            Visibility="Hidden" />
+          <Border x:Name="GotoBorder"
+                  BorderThickness="0"
+                  Visibility="Hidden">
+            <StackPanel Orientation="Horizontal">
+              <Button
+                Name="GotoButton"
+                Width="40"
+                Margin="0,0,5,0"
+                Click="GotoButton_Click"
+                Content="Goto"/>
+              <Button
+                Name="PreviousButton"
+                Width="20"
+                Margin="0,0,5,0"
+                Click="PreviousButton_Click"
+                Content="&lt;"/>
+              <Button
+                Name="NextButton"
+                Width="20"
+                Margin="0,0,10,0"
+                Click="NextButton_Click"
+                Content=">"/>
+            </StackPanel>            
+          </Border>
         </StackPanel>
       </StackPanel>
     </Border>

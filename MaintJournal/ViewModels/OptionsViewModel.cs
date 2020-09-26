@@ -18,6 +18,7 @@ namespace MaintJournal.ViewModels
 
 		private string dbConnection = @"Database=Joost_Dev;Data Source=(Local);Trusted_Connection=True;MultipleActiveResultSets=true";
 		private string backupPath = @"C:\";
+		private string restoreFile = string.Empty;
 		private bool databaseChanged = false;
 
 		#endregion
@@ -46,6 +47,19 @@ namespace MaintJournal.ViewModels
 				if (value != backupPath)
 				{
 					backupPath = value.SavePath();
+					NotifyPropertyChanged();
+				}
+			}
+		}
+
+		public string RestoreFile
+		{
+			get => restoreFile;
+			set
+			{
+				if (value != restoreFile)
+				{
+					restoreFile = value;
 					NotifyPropertyChanged();
 				}
 			}

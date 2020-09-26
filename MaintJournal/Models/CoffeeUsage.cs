@@ -12,6 +12,7 @@ namespace MaintJournal.Models
 	public class CoffeeUsage
 	{
 		public DateTime? Opened { get; set; }
+		public bool NewOpened { get; set; }
 		public int Days { get; set; }
 		public DateTime LastOpened { get; set; }
 		public int Cups { get; set; }
