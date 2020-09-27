@@ -153,12 +153,14 @@
                 Name="PreviousButton"
                 Width="20"
                 Margin="0,0,5,0"
+                Visibility="Collapsed"
                 Click="PreviousButton_Click"
                 Content="&lt;"/>
               <Button
                 Name="NextButton"
                 Width="20"
                 Margin="0,0,10,0"
+                Visibility="Collapsed"
                 Click="NextButton_Click"
                 Content=">"/>
             </StackPanel>            

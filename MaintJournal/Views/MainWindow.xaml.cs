@@ -167,6 +167,16 @@ namespace MaintJournal
 			VM.GotoFilter();
 		}
 
+		private void PreviousButton_Click(object sender, RoutedEventArgs e)
+		{
+			VM.GotoPreviousFilter();
+		}
+
+		private void NextButton_Click(object sender, RoutedEventArgs e)
+		{
+			VM.GotoNextFilter();
+		}
+
 		private void FilterBorden_KeyUp(object sender, KeyEventArgs e)
 		{
 			VM.FilterKeyboard(sender, e);
@@ -179,27 +189,34 @@ namespace MaintJournal
 
 		private void FilterMessageTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
 		{
-			//VM.CanGoto = !string.IsNullOrWhiteSpace(FilterMessageTextBox.Text) ||
-			//	FilterEventComboBox.SelectedIndex > 0;
-			//VM.GotoFilter();
+			FilterVisibility(!string.IsNullOrWhiteSpace(FilterMessageTextBox.Text) ||
+				FilterEventComboBox.SelectedIndex > 0);
 		}
 
 		private void FilterEventComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
 		{
-			//if (VM == null) { return; }
-			//VM.CanGoto = !string.IsNullOrWhiteSpace(FilterMessageTextBox.Text) || 
-			//	FilterEventComboBox.SelectedIndex > 0;
-			//VM.GotoFilter();
+			if (VM == null) { return; }
+			FilterVisibility(!string.IsNullOrWhiteSpace(FilterMessageTextBox.Text) ||
+				FilterEventComboBox.SelectedIndex > 0);
 		}
 
-		private void PreviousButton_Click(object sender, RoutedEventArgs e)
+		private void FilterVisibility(bool canGoto)
 		{
-
+			if (canGoto != VM.CanGoto)
+			{
+				VM.CanGoto = canGoto;
+				if (canGoto)
+				{
+					GotoBorder.Visibility = Visibility.Visible;
+				}
+				else
+				{
+					GotoBorder.Visibility = Visibility.Hidden;
+					PreviousButton.Visibility = Visibility.Collapsed;
+					NextButton.Visibility = Visibility.Collapsed;
+				}
+			}
 		}
 
-		private void NextButton_Click(object sender, RoutedEventArgs e)
-		{
-
-		}
 	}
 }

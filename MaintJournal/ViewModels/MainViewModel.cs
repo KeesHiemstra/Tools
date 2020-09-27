@@ -26,6 +26,8 @@ namespace MaintJournal.ViewModels
 		private JournalDbContext db;
 		public MainWindow View;
 		private ObservableCollection<Journal> filtered = new ObservableCollection<Journal>();
+		private List<int> SelectedItems = new List<int>();
+		private int SelectItem;
 
 		#endregion
 
@@ -37,6 +39,7 @@ namespace MaintJournal.ViewModels
 			new ObservableCollection<Journal>();
 		public ObservableCollection<Journal> Filtered { get => filtered; set => filtered = value; }
 
+		public bool IsFiltered { get; set; }
 		public bool CanGoto { get; set; }
 
 		public int JournalsCount { get => Journals.Count; }
@@ -366,23 +369,94 @@ namespace MaintJournal.ViewModels
 			if (isFiltered)
 			{
 				View.FilterStatus.Visibility = Visibility.Visible;
+				IsFiltered = true;
 			}
 			else
 			{
 				View.FilterStatus.Visibility = Visibility.Collapsed;
+				IsFiltered = false;
 			}
 		}
 
 		internal void GotoFilter()
 		{
-			if (CanGoto)
+			ObservableCollection<Journal> selectedRecords = new ObservableCollection<Journal>();
+			SelectedItems.Clear();
+
+			if (IsFiltered) { selectedRecords = Filtered; }
+			else { selectedRecords = Journals; }
+
+			List<Journal> filtered = new List<Journal>();
+			switch (View.FilterEventComboBox.SelectedIndex)
 			{
-				View.GotoBorder.Visibility = Visibility.Visible;
+				case 0:
+					filtered = selectedRecords
+						.ToList();
+					break;
+				case 1:
+					filtered = selectedRecords
+						.Where(x => string.IsNullOrEmpty(x.Event))
+						.ToList();
+					break;
+				case 2:
+					filtered = selectedRecords
+						.Where(x => !string.IsNullOrEmpty(x.Event))
+						.ToList();
+					break;
+				default:
+					filtered = selectedRecords
+						.Where(x => x.Event == View.FilterEventComboBox.SelectedItem.ToString())
+						.ToList();
+					break;
 			}
-			else
+
+			if (!string.IsNullOrEmpty(View.FilterMessageTextBox.Text))
 			{
-				View.GotoBorder.Visibility = Visibility.Hidden;
+				filtered = filtered
+					.Where(x => x.Message
+						.ToLower()
+						.Contains(View.FilterMessageTextBox.Text.ToLower()))
+					.ToList();
 			}
+
+			foreach (Journal item in filtered)
+			{
+				SelectedItems.Add(selectedRecords.IndexOf(item));
+			}
+
+
+			if (SelectedItems.Count > 0)
+			{
+				if (SelectedItems.Count > 1)
+				{
+					View.PreviousButton.Visibility = Visibility.Visible;
+					View.NextButton.Visibility = Visibility.Visible;
+				}
+
+				SelectItem = 0;
+				MoveToFilter();
+			}
+		}
+
+		private void MoveToFilter()
+		{
+			View.MainDataGrid.ScrollIntoView(View.MainDataGrid.Items[SelectedItems[SelectItem]],
+				View.MainDataGrid.Columns[0]);
+			View.MainDataGrid.SelectedItem = View.MainDataGrid.Items[SelectedItems[SelectItem]];
+		}
+
+		internal void GotoPreviousFilter()
+		{
+			if (SelectItem == 0) { SelectItem = SelectedItems.Count - 1; }
+			else { SelectItem--; }
+			MoveToFilter();
+		}
+
+		internal void GotoNextFilter()
+		{
+			if (SelectItem == SelectedItems.Count - 1) { SelectItem = 0; }
+			else { SelectItem++; }
+			MoveToFilter();
 		}
 
 		internal void CloseWindow()
@@ -398,6 +472,8 @@ namespace MaintJournal.ViewModels
 			NotifyPropertyChanged("FilteredCount");
 			Log.Write($"Connection is changed to {Options.DbName}");
 		}
+
+		#region GetJournalEvents()
 
 		private void GetJournalEvents()
 		{
@@ -435,5 +511,6 @@ namespace MaintJournal.ViewModels
 			View.FilterEventComboBox.SelectedIndex = 0;
 		}
 
+		#endregion
 	}
 }

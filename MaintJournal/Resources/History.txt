@@ -1,4 +1,7 @@
-﻿Version 1.0.4.6 (2020-09-26)
+﻿Version 1.0.5.7 (2020-09-27)
+* Added Goto, Previous and Next buttons.
+
+Version 1.0.4.6 (2020-09-26)
 * Updated StatusBar, showing count of filtered record.
 * Added Restore, it is not possible for the production version.
 * Bug fix: Expectation in report 'Coffee usage' by a day after a 'Pot oploskoffie' is opened.
