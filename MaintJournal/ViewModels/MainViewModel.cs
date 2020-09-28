@@ -26,7 +26,7 @@ namespace MaintJournal.ViewModels
 		private JournalDbContext db;
 		public MainWindow View;
 		private ObservableCollection<Journal> filtered = new ObservableCollection<Journal>();
-		private List<int> SelectedItems = new List<int>();
+		private readonly List<int> SelectedItems = new List<int>();
 		private int SelectItem;
 
 		#endregion
@@ -277,6 +277,8 @@ namespace MaintJournal.ViewModels
 
 		#endregion
 
+		#region New windows
+
 		internal void DoubleClickDataGrid(object sender, MouseButtonEventArgs e)
 		{
 			if (sender == null) { return; }
@@ -297,6 +299,8 @@ namespace MaintJournal.ViewModels
 			CoffeeUsageViewModel report = new CoffeeUsageViewModel(this);
 			report.ShowReport();
 		}
+
+		#endregion
 
 		internal void FilterKeyboard(object sender, KeyEventArgs e)
 		{
@@ -377,6 +381,8 @@ namespace MaintJournal.ViewModels
 				IsFiltered = false;
 			}
 		}
+
+		#region GotoFilter
 
 		internal void GotoFilter()
 		{
@@ -459,6 +465,8 @@ namespace MaintJournal.ViewModels
 			MoveToFilter();
 		}
 
+		#endregion
+
 		internal void CloseWindow()
 		{
 			Log.Write("Closing Journal");
@@ -477,7 +485,10 @@ namespace MaintJournal.ViewModels
 
 		private void GetJournalEvents()
 		{
+			string FilterSelectedText = View.FilterEventComboBox.Text;
 			View.FilterEventComboBox.Items.Clear();
+
+			#region FilterEventComboBox
 
 			//Add predefined items
 			View.FilterEventComboBox.Items.Add(new TextBlock()
@@ -507,8 +518,9 @@ namespace MaintJournal.ViewModels
 				View.FilterEventComboBox.Items.Add(item);
 			}
 
-			//Show < all > as option
-			View.FilterEventComboBox.SelectedIndex = 0;
+			#endregion
+
+			View.FilterEventComboBox.SelectedItem = FilterSelectedText;
 		}
 
 		#endregion

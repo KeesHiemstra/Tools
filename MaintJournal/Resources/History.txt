@@ -1,4 +1,7 @@
-﻿Version 1.0.5.7 (2020-09-27)
+﻿Version 1.0.5.8 (2020-09-28)
+* Bug fix: Text of 'Event filter' was reset at a `NotifyPropertyChanged`.
+
+Version 1.0.5.7 (2020-09-27)
 * Added Goto, Previous and Next buttons.
 
 Version 1.0.4.6 (2020-09-26)

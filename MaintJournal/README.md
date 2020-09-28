@@ -16,4 +16,5 @@ Such a report can help to cleanup the raw data.
 
 ### Wish list
 
-- [ ] Chanced an event, the 'Event filter' is not updated.
+- [X] Text of 'Event filter' was reset at a `NotifyPropertyChanged`.
+- [ ] The first record was saved, but additional records was not saved.
