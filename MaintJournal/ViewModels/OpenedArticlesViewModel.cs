@@ -34,11 +34,6 @@ namespace MaintJournal.ViewModels
 
 		#endregion
 
-		#region [ Public methods ]
-
-
-		#endregion
-
 		internal void ArticleSelected(object sender, RoutedEventArgs e)
 		{
 			if (sender == null)	{ return;	}

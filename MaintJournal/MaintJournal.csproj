@@ -79,6 +79,7 @@
     <Compile Include="Models\JournalDbContext.cs" />
     <Compile Include="Models\OpenedArticles.cs" />
     <Compile Include="ViewModels\CoffeeUsageViewModel.cs" />
+    <Compile Include="ViewModels\FallenRainViewModel.cs" />
     <Compile Include="ViewModels\JournalViewModel.cs" />
     <Compile Include="ViewModels\OpenedArticlesViewModel.cs" />
     <Compile Include="Views\CoffeeUsageWindow.xaml.cs">
