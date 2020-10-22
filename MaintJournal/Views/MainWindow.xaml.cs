@@ -142,6 +142,21 @@ namespace MaintJournal
 
 		#endregion
 
+		#region ReportFallenRain
+
+		private void ReportFallenRainCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+		{
+			e.CanExecute = (VM.Journals
+				.Count(x => x.Event == "Regen") > 0);
+		}
+
+		private void ReportFallenRainCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+		{
+			VM.ReportFallenRain();
+		}
+
+		#endregion
+
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
 			VM.CloseWindow();

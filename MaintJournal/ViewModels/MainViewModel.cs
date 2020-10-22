@@ -300,6 +300,12 @@ namespace MaintJournal.ViewModels
 			report.ShowReport();
 		}
 
+		internal void ReportFallenRain()
+		{
+			FallenRainViewModel report = new FallenRainViewModel(this);
+			report.ShowReport();
+		}
+
 		#endregion
 
 		internal void FilterKeyboard(object sender, KeyEventArgs e)

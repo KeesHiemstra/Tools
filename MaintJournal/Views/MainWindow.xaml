@@ -46,6 +46,10 @@
       CanExecute="ReportCoffeeUsageCommand_CanExecute"
       Command="cmd:MainWindowCommands.ReportCoffeeUsage"
       Executed="ReportCoffeeUsageCommand_Executed" />
+    <CommandBinding
+      CanExecute="ReportFallenRainCommand_CanExecute"
+      Command="cmd:MainWindowCommands.ReportFallenRain"
+      Executed="ReportFallenRainCommand_Executed" />
   </Window.CommandBindings>
 
   <Grid>
@@ -78,6 +82,7 @@
       <MenuItem Header="_Reports">
         <MenuItem Command="cmd:MainWindowCommands.ReportOpenedArticles" />
         <MenuItem Command="cmd:MainWindowCommands.ReportCoffeeUsage" />
+        <MenuItem Command="cmd:MainWindowCommands.ReportFallenRain" />
       </MenuItem>
     </Menu>
 

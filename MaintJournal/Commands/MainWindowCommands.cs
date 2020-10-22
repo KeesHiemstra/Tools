@@ -83,5 +83,13 @@ namespace MaintJournal.Commands
 				new InputGestureCollection() { }
 			);
 
+		public static readonly RoutedUICommand ReportFallenRain = new RoutedUICommand
+			(
+				"_Fallen rain",
+				"ReportFallenRain",
+				typeof(MainWindowCommands),
+				new InputGestureCollection() { }
+			);
+
 	}
 }
