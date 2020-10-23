@@ -77,7 +77,7 @@ namespace MaintJournal.Commands
 
 		public static readonly RoutedUICommand ReportCoffeeUsage = new RoutedUICommand
 			(
-				"_Cofffe usage",
+				"_Coffee usage",
 				"ReportCoffeeUsage",
 				typeof(MainWindowCommands),
 				new InputGestureCollection() { }

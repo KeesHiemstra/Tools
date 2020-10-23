@@ -14,7 +14,18 @@ The first I added was setup the reports.
 
 Such a report can help to cleanup the raw data.
 
-### Wish list
+Creating the reports learns about LINQ.
 
-- [X] Text of 'Event filter' was reset at a `NotifyPropertyChanged`.
+### Opened articles
+
+### Coffee usage
+
+### Fallen rain
+
+Is a dynamic object. The basis is not so difficult, but it show in grid was a challenge.
+
+# Wish list
+
 - [ ] The first record was saved, but additional records was not saved.
+- [ ] The number are right aligned, inclusive the first column. The first column should be left aligned.
+- [X] Text of 'Event filter' was reset at a `NotifyPropertyChanged`.

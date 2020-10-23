@@ -2,12 +2,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
 
 namespace MaintJournal.ViewModels
 {
@@ -19,11 +15,27 @@ namespace MaintJournal.ViewModels
 		private readonly MainViewModel VM;
 		private FallenRainWindow View;
 
+		public readonly string[] Names = new string[] { "Total",
+				"January",
+				"February",
+				"March",
+				"April",
+				"May",
+				"June",
+				"July",
+				"August",
+				"September",
+				"October",
+				"November",
+				"December"
+				};
+
 		#endregion
 
 		#region [ Properties ]
 
-		public List<FallenRain> FallenRains { get; set; } = new List<FallenRain>();
+		public DataSet Data { get; set; } = new DataSet("Data");
+		private DataView PivotView { get; set; }
 
 		#endregion
 
@@ -48,40 +60,27 @@ namespace MaintJournal.ViewModels
 			View = view;
 			View.DataContext = this;
 
-			CollectFallenRain();
+			CreateTable();
 			View.Show();
 		}
 
 		#endregion
 
-		private void CollectFallenRain()
+		private void CreateTable()
 		{
-			string[] names = new string[] { "Total",
-				"January",
-				"February",
-				"March",
-				"April",
-				"May",
-				"June",
-				"July",
-				"August",
-				"September",
-				"October",
-				"November",
-				"December"
-				};
+			if (Data.Tables.Count > 0) { Data.Tables.Clear(); }
 
-			View.FallenRainDataGrid.ItemsSource = FallenRains;
+			DataTable pivot = new DataTable("Pivot");
+			pivot.Columns.Add("Month", typeof(string));
+			pivot.Columns[0].AllowDBNull = false;
 
-			foreach (string item in names)
-			{
-				FallenRains.Add(new FallenRain() { Name = item });
-			}
+			TotalYearFallenRain(pivot);
 
-			TotalYearFallenRain();
+			PivotView = new DataView(Data.Tables["Pivot"]);
+			View.FallenRainDataGrid.ItemsSource = PivotView;
 		}
 
-		private void TotalYearFallenRain()
+		private void TotalYearFallenRain(DataTable pivot)
 		{
 			var years = VM.Journals
 				.Where(x => x.Event == "Regen")
@@ -97,25 +96,43 @@ namespace MaintJournal.ViewModels
 					)
 				.OrderByDescending(x => x.Key);
 
+			//Create pivot header
+			int count = 0;
 			foreach (var year in years)
 			{
-				DataGridTextColumn column = new DataGridTextColumn()
-				{
-					Header = $"{year.Key}",
-					FontWeight = FontWeights.Bold,
-				};
-
-				View.FallenRainDataGrid.Columns.Add(column);
+				pivot.Columns.Add(year.Key.ToString(), typeof(decimal));
+				count++;
+				pivot.Columns[count].AllowDBNull = true;
 			}
+			Data.Tables.Add(pivot);
+
+			//Fill the first row (total)
+			DataRow row = null;
+			row = Data.Tables[0].NewRow();
+			row["Month"] = Names[0];
+
+			List<int> rainYears = new List<int>();
+			count = 0;
+			foreach (var year in years)
+			{
+				count++;
+				row[count] = Math.Round(year.Rain, 0);
+				rainYears.Add(year.Key);
+			}
+
+			Data.Tables[0].Rows.Add(row);
+
+
+			TotalMonthFallenRain(rainYears);
 		}
 
-		private void TotalMonthFallenRain()
+		private void TotalMonthFallenRain(List<int> rainYears)
 		{
 			var months = VM.Journals
 				.Where(x => x.Event == "Regen")
 				.Where(x => x.DTStart >= new DateTime(2018, 01, 01))
 				.GroupBy(
-					x => (Year: x.DTStart.Value.Year, Month: x.DTStart.Value.Month),
+					x => (Month: x.DTStart.Value.Month, Year: x.DTStart.Value.Year),
 					x => decimal.Parse(x.Message),
 					(Date, rain) => new
 					{
@@ -125,12 +142,38 @@ namespace MaintJournal.ViewModels
 					)
 				.OrderBy(x => x.Key.Month)
 				.ThenByDescending(x => x.Key.Year);
+
+			int dispRow = 0;
+			int dispCol = 0;
+			DataRow row = null;
+			foreach (var month in months)
+			{
+				if (month.Key.Month != dispRow)
+				{
+					if (row != null) { Data.Tables[0].Rows.Add(row); }
+
+					dispRow++;
+					row = null;
+					row = Data.Tables[0].NewRow();
+					row["Month"] = Names[dispRow];
+					dispCol = 1;
+				}
+
+				if (dispCol == 1 && month.Key.Year != rainYears[0])
+				{
+					row[dispCol] = DBNull.Value;
+					dispCol++;
+					row[dispCol] = Math.Round(month.MonthTotals, 0);
+				}
+				else
+				{
+					row[dispCol] = Math.Round(month.MonthTotals, 0);
+				}
+
+				dispCol++;
+			}
+			if (row != null) { Data.Tables[0].Rows.Add(row); }
 		}
 
-	}
-
-	public class FallenRain
-	{
-		public string Name { get; set; }
 	}
 }
