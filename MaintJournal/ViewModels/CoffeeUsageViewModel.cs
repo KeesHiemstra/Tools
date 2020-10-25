@@ -48,6 +48,8 @@ namespace MaintJournal.ViewModels
 			View.Show();
 		}
 
+		#endregion
+
 		private void CollectReport()
 		{
 			View.ReportDataGrid.ItemsSource = null;
@@ -103,8 +105,6 @@ namespace MaintJournal.ViewModels
 
 			View.ReportDataGrid.ItemsSource = Report;
 		}
-
-		#endregion
 
 	}
 }
