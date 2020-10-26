@@ -319,43 +319,9 @@ namespace MaintJournal.ViewModels
 
 		internal void ApplyFilter()
 		{
-			List<Journal> filtered = new List<Journal>();
-
 			View.MainDataGrid.ItemsSource = null;
 
-			switch (View.FilterEventComboBox.SelectedIndex)
-			{
-				case 0:
-					filtered = Journals
-						.ToList();
-					break;
-				case 1:
-					filtered = Journals
-						.Where(x => string.IsNullOrEmpty(x.Event))
-						.ToList();
-					break;
-				case 2:
-					filtered = Journals
-						.Where(x => !string.IsNullOrEmpty(x.Event))
-						.ToList();
-					break;
-				default:
-					filtered = Journals
-						.Where(x => x.Event == View.FilterEventComboBox.SelectedItem.ToString())
-						.ToList();
-					break;
-			}
-
-			if (!string.IsNullOrEmpty(View.FilterMessageTextBox.Text))
-			{
-				filtered = filtered
-					.Where(x => x.Message
-						.ToLower()
-						.Contains(View.FilterMessageTextBox.Text.ToLower()))
-					.ToList();
-			}
-
-			Filtered = new ObservableCollection<Journal>(filtered);
+			Filtered = new ObservableCollection<Journal>(BuildFilter());
 			View.MainDataGrid.ItemsSource = Filtered;
 			UpdateFilterText();
 		}
@@ -398,25 +364,48 @@ namespace MaintJournal.ViewModels
 			if (IsFiltered) { selectedRecords = Filtered; }
 			else { selectedRecords = Journals; }
 
+			List<Journal> filtered = BuildFilter();
+			foreach (Journal item in filtered)
+			{
+				SelectedItems.Add(selectedRecords.IndexOf(item));
+			}
+
+			if (SelectedItems.Count > 0)
+			{
+				if (SelectedItems.Count > 1)
+				{
+					View.PreviousButton.Visibility = Visibility.Visible;
+					View.NextButton.Visibility = Visibility.Visible;
+				}
+
+				SelectItem = 0;
+				MoveToFilter();
+			}
+		}
+
+		private List<Journal> BuildFilter()
+		{
 			List<Journal> filtered = new List<Journal>();
+
 			switch (View.FilterEventComboBox.SelectedIndex)
 			{
+				case -1:
 				case 0:
-					filtered = selectedRecords
+					filtered = Journals
 						.ToList();
 					break;
 				case 1:
-					filtered = selectedRecords
+					filtered = Journals
 						.Where(x => string.IsNullOrEmpty(x.Event))
 						.ToList();
 					break;
 				case 2:
-					filtered = selectedRecords
+					filtered = Journals
 						.Where(x => !string.IsNullOrEmpty(x.Event))
 						.ToList();
 					break;
 				default:
-					filtered = selectedRecords
+					filtered = Journals
 						.Where(x => x.Event == View.FilterEventComboBox.SelectedItem.ToString())
 						.ToList();
 					break;
@@ -431,23 +420,21 @@ namespace MaintJournal.ViewModels
 					.ToList();
 			}
 
-			foreach (Journal item in filtered)
+			if (View.FilterFromDatePicker.SelectedDate != null)
 			{
-				SelectedItems.Add(selectedRecords.IndexOf(item));
+				filtered = filtered
+					.Where(x => x.DTStart >= View.FilterFromDatePicker.SelectedDate.Value)
+					.ToList();
 			}
 
-
-			if (SelectedItems.Count > 0)
+			if (View.FilterToDatePicker.SelectedDate != null)
 			{
-				if (SelectedItems.Count > 1)
-				{
-					View.PreviousButton.Visibility = Visibility.Visible;
-					View.NextButton.Visibility = Visibility.Visible;
-				}
-
-				SelectItem = 0;
-				MoveToFilter();
+				filtered = filtered
+					.Where(x => x.DTStart <= View.FilterToDatePicker.SelectedDate.Value.AddDays(1))
+					.ToList();
 			}
+
+			return filtered;
 		}
 
 		private void MoveToFilter()

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
+using System;
 
 namespace MaintJournal
 {
@@ -16,8 +17,14 @@ namespace MaintJournal
 	/// </summary>
 	public partial class MainWindow : Window
 	{
+		#region [ Fields ]
+
 		private readonly MainViewModel VM;
-		
+
+		#endregion
+
+		#region [ Construction ]
+
 		public MainWindow()
 		{
 			InitializeComponent();
@@ -27,7 +34,13 @@ namespace MaintJournal
 
 			VM = new MainViewModel(this);
 			DataContext = VM;
+
+			FilterEventComboBox.SelectedIndex = 0;
+			FilterFromDatePicker.DisplayDateEnd = DateTime.Now.Date;
+			FilterToDatePicker.DisplayDateEnd = DateTime.Now.Date;
 		}
+
+		#endregion
 
 		#region Exit command
 		private void ExitCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -167,6 +180,8 @@ namespace MaintJournal
 			VM.UpdateDatabaseConnection();
 		}
 
+		#region Search buttons
+
 		private void ApplyButton_Click(object sender, RoutedEventArgs e)
 		{
 			VM.ApplyFilter();
@@ -197,10 +212,14 @@ namespace MaintJournal
 			VM.FilterKeyboard(sender, e);
 		}
 
+		#endregion
+
 		private void MainDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
 		{
 			VM.DoubleClickDataGrid(sender, e);
 		}
+
+		#region Acting on filters
 
 		private void FilterMessageTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
 		{
@@ -232,6 +251,8 @@ namespace MaintJournal
 				}
 			}
 		}
+
+		#endregion
 
 	}
 }

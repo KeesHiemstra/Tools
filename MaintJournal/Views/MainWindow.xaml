@@ -8,7 +8,7 @@
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:vm="clr-namespace:MaintJournal.ViewModels"
   Title="Journal maintenance"
-  Width="800"
+  Width="1000"
   Height="450"
   Closing="Window_Closing"
   mc:Ignorable="d">
@@ -133,6 +133,17 @@
             IsReadOnly="True"
             SelectionChanged="FilterEventComboBox_SelectionChanged" />
 
+          <TextBlock VerticalAlignment="Center" Text="From: "/>
+          <DatePicker 
+            x:Name="FilterFromDatePicker"
+            Margin="0,0,5,0"
+            />
+
+          <TextBlock VerticalAlignment="Center" Text="to: "/>
+          <DatePicker 
+            x:Name="FilterToDatePicker"
+            Margin="0,0,10,0"/>
+
           <Button
             Name="ApplyButton"
             Width="40"
@@ -185,8 +196,8 @@
       MouseDoubleClick="MainDataGrid_MouseDoubleClick">
       <DataGrid.Columns>
         <DataGridTextColumn
-          Width="100"
-          Binding="{Binding DTStart, StringFormat=yyyy-MM-dd HH:mm}"
+          Width="130"
+          Binding="{Binding DTStart, StringFormat=yyyy-MM-dd HH:mm ddd}"
           Header="Time" />
         <DataGridTextColumn
           Width="125"
