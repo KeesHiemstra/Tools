@@ -306,6 +306,12 @@ namespace MaintJournal.ViewModels
 			report.ShowReport();
 		}
 
+		internal void ReportCalendar()
+		{
+			CalendarViewModel report = new CalendarViewModel(this, IsFiltered ? Filtered : Journals);
+			report.ShowReport();
+		}
+
 		#endregion
 
 		internal void FilterKeyboard(object sender, KeyEventArgs e)

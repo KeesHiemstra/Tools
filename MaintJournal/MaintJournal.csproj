@@ -73,19 +73,20 @@
     <Compile Include="Commands\MainWindowCommands.cs" />
     <Compile Include="Extentions\Log.cs" />
     <Compile Include="Extentions\PathExtensions.cs" />
-    <Compile Include="Models\Calender.cs" />
+    <Compile Include="Models\Calendar.cs" />
     <Compile Include="Models\CoffeeUsage.cs" />
     <Compile Include="Models\Contact.cs" />
     <Compile Include="Models\Journal.cs" />
     <Compile Include="Models\JournalDbContext.cs" />
     <Compile Include="Models\OpenedArticles.cs" />
-    <Compile Include="ViewModels\CalenderViewModel.cs" />
+    <Compile Include="ViewModels\CalendarViewModel.cs" />
     <Compile Include="ViewModels\CoffeeUsageViewModel.cs" />
+    <Compile Include="ViewModels\DateInfo.cs" />
     <Compile Include="ViewModels\FallenRainViewModel.cs" />
     <Compile Include="ViewModels\JournalViewModel.cs" />
     <Compile Include="ViewModels\OpenedArticlesViewModel.cs" />
-    <Compile Include="Views\CalenderWindow.xaml.cs">
-      <DependentUpon>CalenderWindow.xaml</DependentUpon>
+    <Compile Include="Views\CalendarWindow.cs">
+      <DependentUpon>CalendarWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CoffeeUsageWindow.xaml.cs">
       <DependentUpon>CoffeeUsageWindow.xaml</DependentUpon>
@@ -102,7 +103,7 @@
     <Compile Include="Views\OptionsWindow.xaml.cs">
       <DependentUpon>OptionsWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="Views\CalenderWindow.xaml">
+    <Page Include="Views\CalendarWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

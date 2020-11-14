@@ -170,6 +170,20 @@ namespace MaintJournal
 
 		#endregion
 
+		#region ReportCalendar
+
+		private void ReportCalendarCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+		{
+			e.CanExecute = true;
+		}
+
+		private void ReportCalendarCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+		{
+			VM.ReportCalendar();
+		}
+
+		#endregion
+
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
 			VM.CloseWindow();

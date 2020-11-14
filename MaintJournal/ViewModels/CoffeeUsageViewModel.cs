@@ -62,13 +62,13 @@ namespace MaintJournal.ViewModels
 
 			Report = new List<CoffeeUsage>();
 
-			if ((DateTime.Now - articles.First().DTStart.Value).TotalDays > 1)
+			if ((DateTime.Now.Date - articles.First().DTStart.Value.Date).TotalDays + 1 >= 1)
 			{
 				Report.Add(new CoffeeUsage
 				{
 					Opened = DateTime.Now,
 					NewOpened = true,
-					Days = (int)(DateTime.Now - articles.First().DTStart.Value).TotalDays,
+					Days = (int)(DateTime.Now.Date - articles.First().DTStart.Value.Date).TotalDays + 1,
 					LastOpened = articles[0].DTStart.Value,
 				});
 			}
@@ -78,7 +78,8 @@ namespace MaintJournal.ViewModels
 				Report.Add(new CoffeeUsage
 				{
 					Opened = articles[i].DTStart,
-					Days = (int)(articles[i].DTStart.Value - articles[i + 1].DTStart.Value).TotalDays,
+					Days = (int)(articles[i].DTStart.Value.Date - 
+						articles[i + 1].DTStart.Value.Date).TotalDays + 1,
 					LastOpened = articles[i + 1].DTStart.Value,
 				});
 			}
@@ -86,12 +87,12 @@ namespace MaintJournal.ViewModels
 			foreach (CoffeeUsage coffee in Report)
 			{
 				var query = VM.Journals
-					.Where(x => x.DTStart <= coffee.Opened && x.DTStart > coffee.LastOpened && 
+					.Where(x => x.DTStart <= coffee.Opened && x.DTStart >= coffee.LastOpened && 
 					x.Event == "Kop koffie");
 
 				coffee.Cups = query.Sum(x => int.Parse(x.Message));
 				coffee.ActualDays = VM.Journals
-					.Where(x => x.DTStart <= coffee.Opened && x.DTStart > coffee.LastOpened && 
+					.Where(x => x.DTStart <= coffee.Opened && x.DTStart >= coffee.LastOpened && 
 					x.Event == "Kop koffie")
 					.GroupBy(date => date.DTStart.Value.Date).Count();
 				coffee.CupsPerDay = (decimal)coffee.Cups / coffee.ActualDays;

@@ -91,5 +91,13 @@ namespace MaintJournal.Commands
 				new InputGestureCollection() { }
 			);
 
+		public static readonly RoutedUICommand ReportCalendar = new RoutedUICommand
+			(
+				"Ca_lendar",
+				"ReportCalendar",
+				typeof(MainWindowCommands),
+				new InputGestureCollection() { }
+			);
+
 	}
 }

@@ -1,4 +1,8 @@
-﻿Version 1.0.7.10 (2020-10-25)
+﻿Version 1.0.8.11 (2020-11-14)
+* CoffeeUsage: Corrected the number of days and counts the number of cups coffee including the time of opening of the 'Pot oploskoffie'.
+* Added report 'Calendar'.
+
+Version 1.0.7.10 (2020-10-25)
 * Show the day name of the date.
 * Extended filter options.
 
