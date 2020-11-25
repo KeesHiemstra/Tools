@@ -13,16 +13,17 @@ namespace MedicationStock.ViewModels
   public class MainViewModel
   {
 
-    #region [ Fields ]
+   #region [ Fields ]
 
-    private MainWindow MainView;// { get; set; }
+    private readonly MainWindow MainView;
     private string JsonFile { get; set; } = "%OneDrive%\\Data\\MedicineStock.json";
 
     #endregion
 
     #region [ Properties ]
 
-    public ObservableCollection<Medicine> Medicines { get; set; } = new ObservableCollection<Medicine>();
+    public ObservableCollection<Medicine> Medicines { get; set; } = 
+      new ObservableCollection<Medicine>();
 
     #endregion
 

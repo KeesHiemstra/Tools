@@ -1,4 +1,7 @@
-﻿Version 1.0.5.10 (2020-02-12)
+﻿Version 1.0.5.11 (2020-11-25)
+* Bug fix: A changed prescription was displayed wrongly.
+
+Version 1.0.5.10 (2020-02-12)
 * The medicines is ordered on the Id.
 * Bug fix: A new medicine was not saved.
 

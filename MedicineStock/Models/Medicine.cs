@@ -107,8 +107,10 @@ namespace MedicationStock.Models
     [JsonIgnore]
     public bool IsChanged { get; private set; }
 
-    public ObservableCollection<Prescription> Prescriptions { get; set; } = new ObservableCollection<Prescription>();
-    public ObservableCollection<Stock> Stocks { get; set; } = new ObservableCollection<Stock>();
+    public ObservableCollection<Prescription> Prescriptions { get; set; } = 
+      new ObservableCollection<Prescription>();
+    public ObservableCollection<Stock> Stocks { get; set; } = 
+      new ObservableCollection<Stock>();
 
     #endregion
 
@@ -142,7 +144,7 @@ namespace MedicationStock.Models
           return -1;
         }
         return Prescriptions
-        .Last()
+        .First()
         .Strength;
       }
     }
@@ -156,7 +158,7 @@ namespace MedicationStock.Models
           return -1;
         }
         return Prescriptions
-        .Last()
+        .First()
         .Day;
       }
     }
@@ -170,7 +172,7 @@ namespace MedicationStock.Models
           return -1;
         }
         return Prescriptions
-          .Last()
+          .First()
           .Unit;
       }
     }

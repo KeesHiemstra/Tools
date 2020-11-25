@@ -21,8 +21,8 @@ namespace MedicationStock.ViewModels
     {
 
       MainVM = main;
-      bool exists = false;
-      if (medicine != null)
+			bool exists;
+			if (medicine != null)
       {
         Medicine = medicine;
         exists = true;
