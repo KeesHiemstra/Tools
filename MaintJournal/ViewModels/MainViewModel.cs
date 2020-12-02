@@ -223,6 +223,7 @@ namespace MaintJournal.ViewModels
 					}
 				}
 
+				//Copy semi-remote backup
 				try
 				{
 					File.Copy(Options.RestoreFile.TranslatePath(), temp);
@@ -244,6 +245,7 @@ namespace MaintJournal.ViewModels
 					$"FROM DISK = N'{temp}' WITH FILE = 1, NOUNLOAD, REPLACE, STATS = 5 " +
 					$"ALTER DATABASE [{Options.DbName}] SET MULTI_USER";
 
+				//Restore the copied backup
 				try
 				{
 					Db.Database.ExecuteSqlCommand(TransactionalBehavior.DoNotEnsureTransaction, sql);
@@ -272,6 +274,9 @@ namespace MaintJournal.ViewModels
 						MessageBoxImage.Exclamation);
 					return;
 				}
+
+				//Reopen the restored database
+				GetJournals();
 			}
 		}
 
