@@ -1,4 +1,7 @@
-﻿Version 1.0.8.13 (2020-12-09)
+﻿Version 1.0.8.14 (2020-12-09)
+* Bug fix: The 'Fallen rain' needed twice a decimal.Parse(x.Message, style, provider) solution.
+
+Version 1.0.8.13 (2020-12-09)
 * Another computer uses a different culture setting. Changing these where reset after a reboot. The 'Fallen rain' gave strange numbers. The parse is now forced to use the en-US culture.
 
 Version 1.0.8.12 (2020-12-02)

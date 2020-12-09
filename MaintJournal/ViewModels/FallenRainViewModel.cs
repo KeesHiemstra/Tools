@@ -16,6 +16,10 @@ namespace MaintJournal.ViewModels
 		private readonly MainViewModel VM;
 		private FallenRainWindow View;
 
+		//Overwrite the Region number style
+		private NumberStyles style = NumberStyles.Integer | NumberStyles.AllowDecimalPoint;
+		private CultureInfo provider = new CultureInfo("en-US", false);
+
 		public readonly string[] Names = new string[] { "Total",
 				"January",
 				"February",
@@ -45,8 +49,6 @@ namespace MaintJournal.ViewModels
 		public FallenRainViewModel(MainViewModel mainVM)
 		{
 			VM = mainVM;
-			//CultureInfo culture = new CultureInfo("en-US", true);
-			//NumberFormatInfo nfi = culture.NumberFormat;
 		}
 
 		#endregion
@@ -90,7 +92,7 @@ namespace MaintJournal.ViewModels
 				.Where(x => x.DTStart >= new DateTime(2018, 01, 01))
 				.GroupBy(
 					x => x.DTStart.Value.Year,
-					x => decimal.Parse(x.Message),
+					x => decimal.Parse(x.Message, style, provider),
 					(Year, TotaalRain) => new
 					{
 						Key = Year,
@@ -131,10 +133,6 @@ namespace MaintJournal.ViewModels
 
 		private void TotalMonthFallenRain(List<int> rainYears)
 		{
-			//Overwrite the Region number style
-			NumberStyles style = NumberStyles.Integer | NumberStyles.AllowDecimalPoint;
-			CultureInfo provider = new CultureInfo("en-US", false);
-
 			var months = VM.Journals
 				.Where(x => x.Event == "Regen")
 				.Where(x => x.DTStart >= new DateTime(2018, 01, 01))
