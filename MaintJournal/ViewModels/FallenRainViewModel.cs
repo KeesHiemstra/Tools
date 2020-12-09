@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 
 namespace MaintJournal.ViewModels
@@ -44,6 +45,8 @@ namespace MaintJournal.ViewModels
 		public FallenRainViewModel(MainViewModel mainVM)
 		{
 			VM = mainVM;
+			//CultureInfo culture = new CultureInfo("en-US", true);
+			//NumberFormatInfo nfi = culture.NumberFormat;
 		}
 
 		#endregion
@@ -128,12 +131,16 @@ namespace MaintJournal.ViewModels
 
 		private void TotalMonthFallenRain(List<int> rainYears)
 		{
+			//Overwrite the Region number style
+			NumberStyles style = NumberStyles.Integer | NumberStyles.AllowDecimalPoint;
+			CultureInfo provider = new CultureInfo("en-US", false);
+
 			var months = VM.Journals
 				.Where(x => x.Event == "Regen")
 				.Where(x => x.DTStart >= new DateTime(2018, 01, 01))
 				.GroupBy(
 					x => (Month: x.DTStart.Value.Month, Year: x.DTStart.Value.Year),
-					x => decimal.Parse(x.Message),
+					x => decimal.Parse(x.Message, style, provider),
 					(Date, rain) => new
 					{
 						Key = Date,
