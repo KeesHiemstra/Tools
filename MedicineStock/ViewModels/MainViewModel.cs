@@ -1,7 +1,9 @@
 ﻿using MedicationStock.Extensions;
 using MedicationStock.Models;
 using MedicationStock.Views;
+
 using Newtonsoft.Json;
+
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -10,180 +12,180 @@ using System.Windows;
 
 namespace MedicationStock.ViewModels
 {
-  public class MainViewModel
-  {
+	public class MainViewModel
+	{
 
-   #region [ Fields ]
+		#region [ Fields ]
 
-    private readonly MainWindow MainView;
-    private string JsonFile { get; set; } = "%OneDrive%\\Data\\MedicineStock.json";
+		private readonly MainWindow MainView;
+		private string JsonFile { get; set; } = "%OneDrive%\\Data\\MedicineStock.json";
 
-    #endregion
+		#endregion
 
-    #region [ Properties ]
+		#region [ Properties ]
 
-    public ObservableCollection<Medicine> Medicines { get; set; } = 
-      new ObservableCollection<Medicine>();
+		public ObservableCollection<Medicine> Medicines { get; set; } =
+			new ObservableCollection<Medicine>();
 
-    #endregion
+		#endregion
 
-    #region [ Construction ]
+		#region [ Construction ]
 
-    public MainViewModel(MainWindow mainWindow)
-    {
+		public MainViewModel(MainWindow mainWindow)
+		{
 
-      MainView = mainWindow;
+			MainView = mainWindow;
 
-      MainView.Title = 
-        $"Medicine stock ({System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()})";
+			MainView.Title =
+				$"Medicine stock ({System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()})";
 
-      LoadMedicineStock();
+			LoadMedicineStock();
 
-    }
+		}
 
-    #endregion
+		#endregion
 
-    public void Closing()
-    {
-      if (IsJsonChanged())
-      {
-        if (!File.Exists("NoAutoSave.trg"))
-        {
-          SaveMedicineStock();
-        }
-        else
-        {
-          MessageBox.Show("Not saved...");
-        }
-      }
-    }
+		public void Closing()
+		{
+			if (IsJsonChanged())
+			{
+				if (!File.Exists("NoAutoSave.trg"))
+				{
+					SaveMedicineStock();
+				}
+				else
+				{
+					MessageBox.Show("Not saved...");
+				}
+			}
+		}
 
-    #region Load & save
+		#region Load & save
 
-    public bool IsJsonChanged()
-    {
-      bool result = false;
-      foreach (var item in Medicines)
-      {
-        result = result || item.IsChanged;
+		public bool IsJsonChanged()
+		{
+			bool result = false;
+			foreach (var item in Medicines)
+			{
+				result = result || item.IsChanged;
 
-        foreach (var deep in item.Prescriptions)
-        {
-          result = result || deep.IsChanged;
-        }
+				foreach (var deep in item.Prescriptions)
+				{
+					result = result || deep.IsChanged;
+				}
 
-        foreach (var deep in item.Stocks)
-        {
-          result = result || deep.IsChanged;
-        }
-      }
+				foreach (var deep in item.Stocks)
+				{
+					result = result || deep.IsChanged;
+				}
+			}
 
-      return result;
-    }
+			return result;
+		}
 
-    private void JsonIsSaved()
-    {
-      foreach (var item in Medicines)
-      {
-        item.Saved();
-      }
-    }
+		private void JsonIsSaved()
+		{
+			foreach (var item in Medicines)
+			{
+				item.Saved();
+			}
+		}
 
-    private void LoadMedicineStock()
-    {
-      JsonFile = JsonFile.TranslatePath();
-      if (File.Exists(JsonFile))
-      {
-        List<Medicine> medicines = new List<Medicine>();
-        using (StreamReader stream = File.OpenText(JsonFile))
-        {
-          string json = stream.ReadToEnd();
-          medicines = JsonConvert.DeserializeObject<ObservableCollection<Medicine>>(json)
-            .OrderBy(x => x.Id)
-            .ToList();
-        }
-        Medicines = new ObservableCollection<Medicine>(medicines);
-      }
+		private void LoadMedicineStock()
+		{
+			JsonFile = JsonFile.TranslatePath();
+			if (File.Exists(JsonFile))
+			{
+				List<Medicine> medicines = new List<Medicine>();
+				using (StreamReader stream = File.OpenText(JsonFile))
+				{
+					string json = stream.ReadToEnd();
+					medicines = JsonConvert.DeserializeObject<ObservableCollection<Medicine>>(json)
+						.OrderBy(x => x.Id)
+						.ToList();
+				}
+				Medicines = new ObservableCollection<Medicine>(medicines);
+			}
 
-    }
+		}
 
-    public void SaveMedicineStock()
-    {
-      //Create Json backup
-      string BackupJsonFile = $"{JsonFile}.bak";
-      if (File.Exists(BackupJsonFile))
-      {
-        File.Delete(BackupJsonFile);
-      }
-      if (File.Exists(JsonFile))
-      {
-        File.Copy(JsonFile, BackupJsonFile);
-      }
+		public void SaveMedicineStock()
+		{
+			//Create Json backup
+			string BackupJsonFile = $"{JsonFile}.bak";
+			if (File.Exists(BackupJsonFile))
+			{
+				File.Delete(BackupJsonFile);
+			}
+			if (File.Exists(JsonFile))
+			{
+				File.Copy(JsonFile, BackupJsonFile);
+			}
 
-      string json = JsonConvert.SerializeObject(Medicines, Formatting.Indented);
-      using (StreamWriter stream = new StreamWriter(JsonFile))
-      {
-        stream.Write(json);
-      }
+			string json = JsonConvert.SerializeObject(Medicines, Formatting.Indented);
+			using (StreamWriter stream = new StreamWriter(JsonFile))
+			{
+				stream.Write(json);
+			}
 
-      JsonIsSaved();
-    }
-    
-    #endregion
+			JsonIsSaved();
+		}
 
-    public void MedicineAdd()
-    {
+		#endregion
 
-      _ = new MedicineViewModel(this, MainView, null);
+		public void MedicineAdd()
+		{
 
-    }
+			_ = new MedicineViewModel(this, MainView, null);
 
-    public void MedicineEdit(Medicine medicine)
-    {
+		}
 
-      _ = new MedicineViewModel(this, MainView, medicine);
+		public void MedicineEdit(Medicine medicine)
+		{
 
-    }
+			_ = new MedicineViewModel(this, MainView, medicine);
 
-    public void PrescriptionList(Medicine medicine)
-    {
+		}
 
-      _ = new PrescriptionListViewModel(MainView, medicine);
-      MainView.DataContext = null;
-      MainView.DataContext = this;
+		public void PrescriptionList(Medicine medicine)
+		{
 
-    }
+			_ = new PrescriptionListViewModel(MainView, medicine);
+			MainView.DataContext = null;
+			MainView.DataContext = this;
 
-    public void StockList(Medicine medicine)
-    {
+		}
 
-      _ = new StockListViewModel(MainView, medicine);
-      MainView.DataContext = null;
-      MainView.DataContext = this;
+		public void StockList(Medicine medicine)
+		{
 
-    }
+			_ = new StockListViewModel(MainView, medicine);
+			MainView.DataContext = null;
+			MainView.DataContext = this;
 
-    /// <summary>
-    /// Copy the selected medicine name.
-    /// </summary>
-    /// <param name="medicine"></param>
-    public void CopyName(Medicine medicine)
-    {
+		}
 
-      Clipboard.SetText(medicine.Name);
+		/// <summary>
+		/// Copy the selected medicine name.
+		/// </summary>
+		/// <param name="medicine"></param>
+		public void CopyName(Medicine medicine)
+		{
 
-    }
+			Clipboard.SetText(medicine.Name);
 
-    public void ShowHistory()
-    {
+		}
 
-      _ = new HistoryWindow()
-      {
-        Left = MainView.Left + 20,
-        Top = MainView.Top + 20
-      }.ShowDialog();
+		public void ShowHistory()
+		{
 
-    }
+			_ = new HistoryWindow()
+			{
+				Left = MainView.Left + 20,
+				Top = MainView.Top + 20
+			}.ShowDialog();
 
-  }
+		}
+
+	}
 }
