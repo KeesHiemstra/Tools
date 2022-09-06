@@ -1,4 +1,7 @@
-﻿Version 1.0.5.11 (2020-11-25)
+﻿Version 1.0.5.12 (2022-09-06)
+* Bug fix: Date was wrongly saved (6 september was save as 9 june).
+
+Version 1.0.5.11 (2020-11-25)
 * Bug fix: A changed prescription was displayed wrongly.
 
 Version 1.0.5.10 (2020-02-12)

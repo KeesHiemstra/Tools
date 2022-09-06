@@ -77,7 +77,6 @@ namespace MedicationStock.ViewModels
     {
 
       StockEditView.DialogResult = true;
-      
 
     }
 
