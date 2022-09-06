@@ -93,7 +93,7 @@
            Grid.Column="0"
            Grid.Row="4"/>
 
-    <DatePicker Text="{Binding StartDate, StringFormat=yyyy-MM-dd, Mode=TwoWay}"
+    <DatePicker SelectedDate="{Binding StartDate, StringFormat=yyyy-MM-dd, Mode=TwoWay}"
                 IsTodayHighlighted="True"
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Center"
@@ -105,7 +105,7 @@
            Grid.Column="0"
            Grid.Row="5"/>
 
-    <DatePicker Text="{Binding FinishDate, StringFormat=yyyy-MM-dd, Mode=TwoWay}"
+    <DatePicker SelectedDate="{Binding FinishDate, StringFormat=yyyy-MM-dd, Mode=TwoWay}"
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Center"
                 Grid.Column="1"
