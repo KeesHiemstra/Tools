@@ -65,6 +65,10 @@
                             Binding="{Binding Day}"/>
         <DataGridTextColumn Header="Unit"
                             Binding="{Binding Unit}"/>
+        <DataGridTextColumn Header="Avg"
+                            Binding="{Binding Avg, StringFormat=0.00}"/>
+        <DataGridTextColumn Header="Info"
+                            Binding="{Binding Info}"/>
       </DataGrid.Columns>
 
     </DataGrid>

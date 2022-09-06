@@ -80,6 +80,11 @@ namespace MedicationStock.Models
       }
     }
     [JsonIgnore]
+    public decimal Avg
+    {
+      get => Unit / Day;
+    }
+    [JsonIgnore]
     public bool IsChanged { get; private set; }
 
     #endregion

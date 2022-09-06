@@ -1,4 +1,7 @@
-﻿Version 1.0.5.13 (2022-09-06)
+﻿Version 1.0.6.14 (2022-09-06)
+* Add 'Avg' and 'Info' in list of Perscription.
+
+Version 1.0.5.13 (2022-09-06)
 * Used 'SelectedDate' instead 'Text' in 'DatePicker' to use the correct date.
 
 Version 1.0.5.12 (2022-09-06)
