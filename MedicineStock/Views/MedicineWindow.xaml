@@ -19,16 +19,18 @@
       <RowDefinition Height="Auto"/>
       <!-- 1: Name -->
       <RowDefinition Height="Auto"/>
-      <!-- 2: Recurring -->
+      <!-- 2: Note -->
       <RowDefinition Height="Auto"/>
-      <!-- 3: Info -->
+      <!-- 3: Recurring -->
       <RowDefinition Height="Auto"/>
-      <!-- 4: StartDate -->
+      <!-- 4: Info -->
       <RowDefinition Height="Auto"/>
-      <!-- 5: FinishDate -->
+      <!-- 5: StartDate -->
+      <RowDefinition Height="Auto"/>
+      <!-- 6: FinishDate -->
       <RowDefinition Height="Auto"/>
       <RowDefinition Height="*"/>
-      <!-- 7: buttons -->
+      <!-- 8: buttons -->
       <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
 
@@ -60,22 +62,36 @@
              Grid.Column="1"
              Grid.Row="1"/>
 
+    <!-- 2: Name -->
+    <Label Content="Note: "
+           Grid.Column="0"
+           Grid.Row="2"/>
+
+    <TextBox Name="NoteTextBox"
+             Text="{Binding Note}"
+             Margin="0,0,0,2"
+             VerticalAlignment="Center"
+             SpellCheck.IsEnabled="True"
+             Language="Nl-nl"
+             Grid.Column="1"
+             Grid.Row="2"/>
+
     <!-- 2: Recurring -->
     <Label Content="Recurring: "
            Grid.Column="0"
-           Grid.Row="2"/>
+           Grid.Row="3"/>
     
     <CheckBox IsChecked="{Binding Recurring}"
               Margin="0,0,0,0"
               HorizontalAlignment="Left"
               VerticalAlignment="Center"
               Grid.Column="1"
-              Grid.Row="2"/>
+              Grid.Row="3"/>
 
     <!-- 3: Info -->
     <Label Content="Information: "
            Grid.Column="0"
-           Grid.Row="3"/>
+           Grid.Row="4"/>
 
     <TextBox Text="{Binding Info}"
              TextWrapping="WrapWithOverflow"
@@ -86,36 +102,36 @@
              SpellCheck.IsEnabled="True"
              Language="Nl-nl"
              Grid.Column="1"
-             Grid.Row="3"/>
+             Grid.Row="4"/>
 
     <!-- 4: StartDate -->
     <Label Content="Start date: "
            Grid.Column="0"
-           Grid.Row="4"/>
+           Grid.Row="5"/>
 
     <DatePicker SelectedDate="{Binding StartDate, StringFormat=yyyy-MM-dd, Mode=TwoWay}"
                 IsTodayHighlighted="True"
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Center"
                 Grid.Column="1"
-                Grid.Row="4"/>
+                Grid.Row="5"/>
 
     <!-- 5: FinishDate -->
     <Label Content="Finish date: "
            Grid.Column="0"
-           Grid.Row="5"/>
+           Grid.Row="6"/>
 
     <DatePicker SelectedDate="{Binding FinishDate, StringFormat=yyyy-MM-dd, Mode=TwoWay}"
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Center"
                 Grid.Column="1"
-                Grid.Row="5"/>
+                Grid.Row="6"/>
 
     <!-- 7: buttons -->
     <StackPanel Orientation="Horizontal"
                 Grid.ColumnSpan="2"
                 Grid.Column="0"
-                Grid.Row="7">
+                Grid.Row="8">
       <Button Content="Save"
               Height="21"
               Width="75"

@@ -81,6 +81,7 @@
               Grid.Row="1">
       <DataGrid.Columns>
         <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+        <DataGridTextColumn Header="Note" Binding="{Binding Note}"/>
         <DataGridCheckBoxColumn Header="Recurring" Binding="{Binding Recurring}"/>
         <DataGridTextColumn Header="Strength" Binding="{Binding LastPrescripeStrength}"/>
         <DataGridTextColumn Header="Day" Binding="{Binding LastPrescripeDay}"/>

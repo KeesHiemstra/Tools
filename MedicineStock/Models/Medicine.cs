@@ -15,6 +15,7 @@ namespace MedicationStock.Models
     private readonly DateTime CalculateCountDate = DateTime.Now.Date;
     private int id;
     private string name;
+    private string note;
     private bool recurring;
     private string info;
     private DateTime startDate;
@@ -49,7 +50,19 @@ namespace MedicationStock.Models
         }
       }
     }
-    public bool Recurring
+		public string Note
+		{
+			get => note;
+			set
+			{
+				if (note != value)
+				{
+					note = value;
+					NotifyPropertyChanged("Note");
+				}
+			}
+		}
+		public bool Recurring
     {
       get => recurring;
       set

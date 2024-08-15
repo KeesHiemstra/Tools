@@ -56,7 +56,16 @@ namespace CopyLogonBackgroundPicture
         Environment.Exit(1);
       }
 
-      foreach (string fileName in fileNames)
+      if (fileNames == null) 
+      {
+				MessageBox.Show("No files to select.",
+					"Error select file",
+					MessageBoxButton.OK,
+					MessageBoxImage.Error);
+				Environment.Exit(1);
+			}
+
+			foreach (string fileName in fileNames)
       {
         SlideStrip.Add(new Slide() { FileName = fileName });
       }
