@@ -47,5 +47,6 @@ namespace MedicationStock.Views
       PrescriptionListViewModel.PrescriptionEdit((Prescription)((DataGrid)sender).CurrentItem);
 
     }
+
   }
 }

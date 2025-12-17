@@ -46,5 +46,6 @@ namespace MedicationStock.ViewModels
     {
       ((TextBox)e.OriginalSource).SelectAll();
     }
+
   }
 }

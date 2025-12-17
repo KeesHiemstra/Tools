@@ -80,7 +80,6 @@ namespace MedicationStock.ViewModels
 
     }
 
-
     internal void PrescriptionEdit(Prescription prescription)
     {
 
