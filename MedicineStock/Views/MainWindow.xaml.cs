@@ -11,7 +11,17 @@ namespace MedicationStock
   /// </summary>
   public partial class MainWindow : Window
   {
+
+    #region [ Fields ]
+    #endregion
+
+    #region [ Properties ]
+
     public MainViewModel MainVM { get; set; }
+
+    #endregion
+
+    #region [ Constructions ]
 
     public MainWindow()
     {
@@ -19,10 +29,11 @@ namespace MedicationStock
       InitializeComponent();
 
       MainVM = new MainViewModel(this);
-
       DataContext = MainVM;
 
     }
+
+    #endregion
 
     private void MedicinesDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {

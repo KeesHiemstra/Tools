@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29613.14
+# Visual Studio Version 18
+VisualStudioVersion = 18.3.11312.210 d18.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedicineStock", "MedicineStock\MedicineStock.csproj", "{0C7FBAC4-1A5D-4A8E-AC54-EAD21ACB56DB}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExecuteMonitor", "ExecuteMonitor\ExecuteMonitor.csproj", "{E0BEFC57-6572-4A0E-B518-7A989725A209}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CopyLogonBackgroundPicture", "CopyLogonBackgroundPicture\CopyLogonBackgroundPicture.csproj", "{5B829DB1-A70F-496F-89B0-A5E63E0F1840}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LastSunday", "LastSunday\LastSunday.csproj", "{A1675DEA-2D11-4060-B5F8-AE4011851E11}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{5B829DB1-A70F-496F-89B0-A5E63E0F1840}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B829DB1-A70F-496F-89B0-A5E63E0F1840}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B829DB1-A70F-496F-89B0-A5E63E0F1840}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1675DEA-2D11-4060-B5F8-AE4011851E11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1675DEA-2D11-4060-B5F8-AE4011851E11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1675DEA-2D11-4060-B5F8-AE4011851E11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1675DEA-2D11-4060-B5F8-AE4011851E11}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Windows;
 
 namespace MedicationStock.ViewModels
@@ -36,8 +37,9 @@ namespace MedicationStock.ViewModels
 
 			MainView = mainWindow;
 
-			MainView.Title =
-				$"Medicine stock ({System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()})";
+			string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+      MainView.Title =
+				$"Medicine stock ({version})";
 
 			LoadMedicineStock();
 
