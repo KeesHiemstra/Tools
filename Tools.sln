@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CopyLogonBackgroundPicture"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LastSunday", "LastSunday\LastSunday.csproj", "{A1675DEA-2D11-4060-B5F8-AE4011851E11}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SunUpAndDown", "SunUpAndDown\SunUpAndDown\SunUpAndDown.csproj", "{093A5C84-6D52-4211-A771-74740D2D2B94}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{A1675DEA-2D11-4060-B5F8-AE4011851E11}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1675DEA-2D11-4060-B5F8-AE4011851E11}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A1675DEA-2D11-4060-B5F8-AE4011851E11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{093A5C84-6D52-4211-A771-74740D2D2B94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{093A5C84-6D52-4211-A771-74740D2D2B94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{093A5C84-6D52-4211-A771-74740D2D2B94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{093A5C84-6D52-4211-A771-74740D2D2B94}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
