@@ -9,12 +9,13 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>CHi</RootNamespace>
     <AssemblyName>CHi</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -57,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\DateExtention.cs" />
     <Compile Include="Extensions\DbContextExtensions.cs" />
     <Compile Include="Extensions\PathExtensions.cs" />
     <Compile Include="Extensions\ServiceExtensions.cs" />

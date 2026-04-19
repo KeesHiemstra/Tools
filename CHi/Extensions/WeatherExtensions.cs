@@ -49,5 +49,6 @@ namespace CHi.Extensions
 			return (decimal)(speed * 3.6);
 		}
 		#endregion
+
 	}
 }
